@@ -20,8 +20,13 @@ public class SecurityConfig {
         return configuration.getAuthenticationManager();
     }
 
+//    @Bean
+//    public static PasswordEncoder passwordEncoder(){
+//        return new BCryptPasswordEncoder();
+//    }
+
     @Bean
-    public static PasswordEncoder passwordEncoder(){
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
@@ -35,7 +40,7 @@ public class SecurityConfig {
                         form -> form
                                 .loginPage("/login")
                                 .loginProcessingUrl("/login")
-                                .defaultSuccessUrl("/")
+                                .defaultSuccessUrl("/welcome")
                                 .permitAll()
                 ).logout(
                         logout -> logout

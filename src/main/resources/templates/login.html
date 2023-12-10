@@ -13,7 +13,7 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" th:href="@{/index}">Spring Security Custom Login Example</a>
+        <a class="navbar-brand" th:href="@{/index}">Sprint Planner X</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -33,7 +33,7 @@
 
             <div class="card">
                 <div class="card-header">
-                    <h2 class="text-center">Login Form</h2>
+                    <h2 class="text-center">Login</h2>
                 </div>
                 <div class="card-body">
                     <form
@@ -43,13 +43,13 @@
                             class="form-horizontal"
                     >
                         <div class="form-group mb-3">
-                            <label class="control-label"> Email</label>
+                            <label class="control-label"> Email Or Username</label>
                             <input
                                     type="text"
                                     id="username"
                                     name="username"
                                     class="form-control"
-                                    placeholder="Enter email address"
+                                    placeholder="Enter email or username"
                             />
                         </div>
 
@@ -64,9 +64,11 @@
                             />
                         </div>
                         <div class="form-group mb-3">
-                            <button type="submit" class="btn btn-primary" >Submit</button>
+                            <button type="submit" class="btn btn-primary" >Sign In</button>
                         </div>
+
                     </form>
+                    <a type="button" class="btn btn-primary" th:href="@{/register}" >Sign Up</a>
                 </div>
             </div>
         </div>
