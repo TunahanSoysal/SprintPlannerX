@@ -35,7 +35,11 @@ public class SecurityConfig {
         http
                 .csrf().disable()
                 .authorizeHttpRequests((authorize) ->
-                        authorize.anyRequest().authenticated()
+                        authorize
+                                .requestMatchers(new AntPathRequestMatcher("/register.html")).permitAll()
+                                .requestMatchers(new AntPathRequestMatcher("/register")).permitAll()
+                                .anyRequest().authenticated()
+
                 ).formLogin(
                         form -> form
                                 .loginPage("/login")

@@ -1,10 +1,8 @@
 package com.example.sprintplannerx.Repository;
 
+import com.example.sprintplannerx.Entities.Event;
 import com.example.sprintplannerx.Entities.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.Optional;
-
-public interface RoleRepository extends JpaRepository<Role, Integer> {
-    Optional<Role> findByName(String name);
+public interface EventRepository extends JpaRepository<Event, Long> {
 }
