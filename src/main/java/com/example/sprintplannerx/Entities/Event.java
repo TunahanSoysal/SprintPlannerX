@@ -13,7 +13,7 @@ import java.util.List;
 public class Event {
     @Id
     @GeneratedValue
-    private Long id;
+    private Long Id;
 
     private String eventName;
 
@@ -23,4 +23,8 @@ public class Event {
 
     @OneToMany
     private List<Task> tasks = new ArrayList<>();
+
+    @OneToMany
+    private List<User> users = new ArrayList<User>();
+
 }

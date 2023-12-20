@@ -31,7 +31,8 @@ public class UserController {
     }
 
     @PutMapping(value ="/{userId}", consumes = "application/json", produces = "application/json")
-    public User updateOneUser(@PathVariable Integer userId, @RequestBody User newUser){
+    public User updateOneUser(@PathVariable Integer userId,
+                              @RequestBody User newUser){
         return userService.updateOneUser(userId,newUser);
     }
 

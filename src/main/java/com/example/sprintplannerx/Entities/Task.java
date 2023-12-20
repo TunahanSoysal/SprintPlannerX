@@ -19,11 +19,11 @@ public class Task {
     private String Status;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn
+    @JoinColumn(name = "developer_id")
     private User Developer;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn
+    @JoinColumn(name = "analyst_id")
     private User Analyst;
 
     private Date DueDate;
@@ -33,6 +33,10 @@ public class Task {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "event_id")
     private Event Event;
+
+    private boolean isStarred;
+
+
 
 
 

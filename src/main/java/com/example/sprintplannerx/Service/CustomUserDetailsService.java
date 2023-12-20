@@ -1,7 +1,5 @@
 package com.example.sprintplannerx.Service;
 
-import java.util.Set;
-import java.util.stream.Collectors;
 import com.example.sprintplannerx.Entities.User;
 import com.example.sprintplannerx.Repository.UserRepository;
 import lombok.AllArgsConstructor;
@@ -12,6 +10,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor

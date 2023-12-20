@@ -5,20 +5,28 @@ import com.example.sprintplannerx.Entities.Task;
 import com.example.sprintplannerx.Entities.User;
 import com.example.sprintplannerx.Service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
 import java.util.List;
 
-@RestController
-@RequestMapping("/tasks")
+@Controller
+@RequestMapping()
 public class TaskController {
     @Autowired
     private TaskService taskService;
 
-    @GetMapping
-    public List<Task> getAllTasks() {
-        return taskService.getAllTasks();
+//    @GetMapping
+//    public List<Task> getAllTasks() {
+//        return taskService.getAllTasks();
+//    }
+    @GetMapping("tasks")
+    public String listTasks(Model model) {
+        List<Task> tasks = taskService.getAllTasks();
+        model.addAttribute("tasks", tasks);
+        return "tasks";
     }
 
     @GetMapping("/{id}")

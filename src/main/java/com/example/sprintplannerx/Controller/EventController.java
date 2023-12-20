@@ -25,7 +25,9 @@ public class EventController {
     }
 
     @PostMapping
-    public Event createEvent(@RequestParam String eventName, @RequestParam Date startDate, @RequestParam Date endDate) {
+    public Event createEvent(@RequestParam String eventName,
+                             @RequestParam Date startDate,
+                             @RequestParam Date endDate) {
         return eventService.createEvent(eventName, startDate, endDate);
     }
 

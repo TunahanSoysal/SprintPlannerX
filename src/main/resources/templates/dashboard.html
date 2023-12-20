@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+          crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+            integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+            crossorigin="anonymous"></script>
+    <style>
+        #secondary_navbar .active {
+            text-decoration: underline;
+        }
+        #sidebar {
+            height: 100vh;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        #sidebar .nav-link {
+            color: lightgray; /* Varsayılan metin rengi */
+        }
+
+        #sidebar .nav-link.active {
+            color: white; /* Tıklanan öğenin metin rengi */
+            background-color: gray; /* Tıklanan öğenin arka plan rengi */
+            text-decoration: underline; /* Altı çizgi ekle */
+        }
+
+        #sidebar .nav-link:hover {
+            color: white; /* Fare üzerine gelindiğinde metin rengi */
+        }
+    </style>
+    <script>
+        function selectNavItem(element) {
+            // Remove 'active' class from all nav links
+            var navLinks = document.querySelectorAll('.navbar-nav .nav-link');
+            navLinks.forEach(function(link) {
+                link.classList.remove('active');
+            });
+
+            // Add 'active' class to the clicked nav link
+            element.classList.add('active');
+        }
+        function selectNavItemWId(element, itemId) {
+            var navLinks = document.querySelectorAll('#sidebar .nav-link');
+
+            navLinks.forEach(function (link) {
+                link.classList.remove('active');
+            });
+
+            element.classList.add('active');
+        }
+    </script>
+
+
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" th:href="@{/dashboard}">SplannerX</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Menu
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Profile</a></li>
+                            <li><a class="dropdown-item" th:href="@{/logout}">Logout</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+
+    </nav>
+    <!--            <h1> Welcome to Spring Security world!</h1>-->
+    <!--            <div th:with="authentication=${authentication}">-->
+    <!--                <p>Username: <span th:text="${authentication.name}"></span></p>-->
+    <!--                <p>Roles: <span th:each="authority : ${authentication.authorities}" th:text="${authority.authority}"></span></p>-->
+    <!--            </div>-->
+
+    <!--            &lt;!&ndash; sadece admine veya usera göstermece kodu &ndash;&gt;-->
+    <!--            <div th:each="authority : ${authentication.authorities}" th:if="${authority.getAuthority()=='ROLE_ADMIN'}">-->
+    <!--                <h2>Team Lead Dashboard</h2>-->
+    <!--            </div>-->
+
+    <!--            <div th:each="authority : ${authentication.authorities}" th:if="${authority.getAuthority()=='ROLE_DEVELOPER'}" >-->
+    <!--                <h2>User Dashboard</h2>-->
+    <!--            </div>-->
+
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-secondary">
+                <div class="position-sticky">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" onclick="selectNavItemWId(this, 'home')">
+                                Home
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/tasks" onclick="selectNavItemWId(this, 'tasks')">
+                                Tasks
+                            </a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="starredTasksDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Starred Tasks
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="starredTasksDropdown">
+                                <!-- Starred Tasks dropdown içeriği -->
+                                <th:block th:each="starredTask : ${starredTasks}">
+                                    <a class="dropdown-item" th:href="@{'/tasks/' + ${starredTask.ID}}" th:text="${starredTask.name}"></a>
+                                </th:block>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="registeredEventsDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Registered Events
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="registeredEventsDropdown">
+                                <!-- Registered Events dropdown içeriği -->
+                                <th:block th:each="event : ${registeredEvents}">
+                                    <a class="dropdown-item" th:href="@{'/events/' + ${event.id}}" th:text="${event.eventName}"></a>
+                                </th:block>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- İkincil Başlık ve İki Farklı Bölüm -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+                    <h1 class="h2">Task Name</h1>
+                </div>
+                <!-- Secondary Navbar -->
+                <nav class="navbar navbar-expand-lg navbar-light bg-light" id="secondary_navbar">
+                    <div class="container-fluid">
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#secondaryNavbar" aria-controls="secondaryNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse border-bottom" id="secondaryNavbar">
+                            <ul class="navbar-nav">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#" onclick="selectNavItem(this)">List</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#" onclick="selectNavItem(this)">Board</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#" onclick="selectNavItem(this)">Timeline</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#" onclick="selectNavItem(this)">Calendar</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#" onclick="selectNavItem(this)">Dashboard</a>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+
+                <div class="row">
+                    <!-- İlk Bölüm -->
+                    <div class="col-md-6">
+                        <h2>Bölüm 1</h2>
+                        <!-- İlk bölüm içeriği buraya gelecek -->
+                    </div>
+
+                    <!-- İkinci Bölüm -->
+                    <div class="col-md-6">
+                        <h2>Bölüm 2</h2>
+                        <!-- İkinci bölüm içeriği buraya gelecek -->
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+</body>
+</html>
