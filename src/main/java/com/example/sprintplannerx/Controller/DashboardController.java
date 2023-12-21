@@ -41,6 +41,11 @@ public class DashboardController {
         return "login";
     }
 
+    @GetMapping("/todo")
+    public String todo() {
+        return "todo";
+    }
+
     @GetMapping("/logout")
     public String logout() {
         return "redirect:/login";
