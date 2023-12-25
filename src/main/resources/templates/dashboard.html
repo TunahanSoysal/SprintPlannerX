@@ -24,7 +24,7 @@
             top: 0;
             z-index: 1000;
             width: 200px;
-            background-color: rgba(13, 56, 27, 0.85);
+            background-color: rgba(0, 0, 0, 0.79);
             overflow: hidden;
             white-space: nowrap;
             text-overflow: ellipsis;
@@ -32,10 +32,10 @@
         #sidebar .nav-link {
             color: lightgray; /* Varsayılan metin rengi */
         }
-        #sidebar .navbar-brand {
-            color: #ffcc1d; /* Varsayılan metin rengi */
-            font-size: x-large;
-        }
+        /*#sidebar .navbar-brand {*/
+        /*    color: #ffcc1d; !* Varsayılan metin rengi *!*/
+        /*    font-size: x-large;*/
+        /*}*/
 
         #sidebar .nav-link.active {
             color: white; /* Tıklanan öğenin metin rengi */
@@ -112,8 +112,7 @@
                     <ul class="nav flex-column">
                         <li class="nav-item">
                             <a class="navbar-brand" th:href="@{/dashboard}">
-<!--                                <img src="/path/to/your/logo.png" alt="SplannerX Logo">-->
-                                SplannerX
+                                <img th:src="@{/images/logo.png}" alt="SplannerX" width="160px" style="padding: 10px">
                             </a>
                         </li>
 
@@ -193,7 +192,7 @@
                             <span style="font-weight: bold">On Track:</span>
                             <span th:if="${onTrackedTask != null}" th:text="${onTrackedTask.name}"></span>
                         <!-- Eğer onTrackedTask null ise, mesajı göster -->
-                            <span th:unless="${onTrackedTask != null}">You are not tracking any task..</span>
+                            <span th:unless="${onTrackedTask != null}">You are not tracking any task.</span>
                         </p>
                     </div>
                 </div>

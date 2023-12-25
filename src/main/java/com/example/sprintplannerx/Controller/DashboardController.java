@@ -41,6 +41,8 @@ public class DashboardController {
 
         model.addAttribute("authentication", authentication);
 
+        model.addAttribute("logo", "resources/static/images/logo.png");
+
 
         List<Task> starredTasks = taskService.getStarredTasks(username);
         model.addAttribute("starredTasks", starredTasks);
