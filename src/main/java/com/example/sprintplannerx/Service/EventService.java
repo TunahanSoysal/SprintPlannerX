@@ -43,7 +43,6 @@ public class EventService {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         String username = userDetails.getUsername();
 
-        // Kullanıcının kayıtlı olduğu etkinlikleri getir
         List<Event> allEvents = eventRepository.findAll();
         return allEvents.stream()
                 .filter(event -> event.getUsers().stream().anyMatch(user -> user.getUsername().equals(username)))

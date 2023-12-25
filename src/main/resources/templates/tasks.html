@@ -28,7 +28,6 @@
         </tr>
         </thead>
         <tbody>
-        <!-- Bu kısıma Spring Controller'dan dönen tasks listesini ekleyin -->
         <tr th:each="task : ${tasks}">
             <td th:text="${task.ID}"></td>
             <td th:text="${task.name}"></td>

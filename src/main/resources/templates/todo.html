@@ -28,9 +28,9 @@
         }
 
         .task.dragging {
-            background-color: #424547; /* Sürüklenen öğenin rengi */
+            background-color: #424547;
             color: #d1d3e2;
-            border-color: #d1d3e2; /* Sürüklenen öğenin kenar rengi */
+            border-color: #d1d3e2;
             opacity: 0.6;
         }
 
@@ -40,7 +40,7 @@
         }
 
         .task-list.drag-over {
-            border: 2px dashed #495057; /* Sürükleme alanını belirtir */
+            border: 2px dashed #495057;
         }
 
     </style>
@@ -61,7 +61,7 @@
         <div class="col-md-6">
             <h2>Done</h2>
             <ul id="done-list" class="task-list" ondrop="drop(event, 'done-list')" ondragover="allowDrop(event)">
-                <!-- Completed tasks will appear here -->
+
                 <li class="task" draggable="true" ondragstart="drag(event)">Task 5</li>
             </ul>
         </div>
@@ -69,7 +69,7 @@
 </div>
 
 <script>
-    var draggedTask = null; // Sürüklenen görevi takip etmek için değişken
+    var draggedTask = null;
 
     function allowDrop(event) {
         event.preventDefault();
@@ -89,15 +89,15 @@
 
         var targetList = document.getElementById(targetListId);
 
-        // Kontrol ekle: Aynı listeye bırakıldığında işlemi gerçekleştirme
+        // Aynı listeye bırakıldığında işlemi gerçekleştirme
         if (event.target.tagName === "LI" && event.target.parentElement.id === targetListId) {
-            resetDraggingStyles(); // Taşıma işlemi tamamlandığında renkleri sıfırla
+            resetDraggingStyles();
             return;
         }
 
-        // Kontrol ekle: Aynı isimde başka bir görev varsa işlemi gerçekleştirme
+        // Aynı isimde başka bir görev varsa işlemi gerçekleştirme
         if (isDuplicateTask(targetList, data)) {
-            resetDraggingStyles(); // Taşıma işlemi tamamlandığında renkleri sıfırla
+            resetDraggingStyles();
             return;
         }
 
@@ -123,7 +123,7 @@
             }
         }
 
-        resetDraggingStyles(); // Taşıma işlemi tamamlandığında renkleri sıfırla
+        resetDraggingStyles();
     }
 
     document.addEventListener("dragleave", function (event) {
@@ -146,6 +146,5 @@
         return false;
     }
 </script>
-
 </body>
 </html>

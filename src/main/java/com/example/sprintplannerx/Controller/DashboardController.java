@@ -12,7 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
 import java.util.List;
@@ -49,8 +48,7 @@ public class DashboardController {
         Task onTrackedTask = userService.getOnTrackTaskByUsername(username);
         model.addAttribute("onTrackedTask",onTrackedTask);
 
-        // Registered Events için
-        // (Burada bir servis metodu oluşturmanız gerekecek, benim yazdığım kod bir örnektir)
+
         List<Event> registeredEvents = eventService.getRegisteredEvents(authentication);
         model.addAttribute("registeredEvents", registeredEvents);
 
