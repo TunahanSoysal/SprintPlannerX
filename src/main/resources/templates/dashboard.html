@@ -153,7 +153,6 @@
                                 </th:block>
                             </ul>
                         </li>
-                        <br>
                         <hr>
                         <!-- Registered Events -->
                         <li class="nav-item">
@@ -179,7 +178,6 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#">Profile</a>
                     </li>
-                    <br>
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/logout}">Logout</a>
                     </li>
@@ -196,7 +194,7 @@
                             <span style="font-weight: bold">On Track:</span>
                             <span th:if="${onTrackedTask != null}" th:text="${onTrackedTask.name}"></span>
                         <!-- Eğer onTrackedTask null ise, mesajı göster -->
-                            <span th:unless="${onTrackedTask != null}">You are not tracking any task.</span>
+                            <span th:unless="${onTrackedTask != null}">You are not tracking any task..</span>
                         </p>
                     </div>
                 </div>
