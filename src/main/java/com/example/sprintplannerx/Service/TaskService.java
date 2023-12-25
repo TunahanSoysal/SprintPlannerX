@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -42,9 +43,7 @@ public class TaskService {
         taskRepository.deleteById(id);
     }
 
-    public List<Task> getStarredTasks(Authentication authentication) {
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        String username = userDetails.getUsername();
+    public List<Task> getStarredTasks(String username) {
 
         List<Task> allTasks = taskRepository.findAll();
         return allTasks.stream()
@@ -52,5 +51,15 @@ public class TaskService {
                 .filter(task -> task.getDeveloper().getUsername().equals(username) || task.getAnalyst().getUsername().equals(username))
                 .collect(Collectors.toList());
     }
+
+
+    public List<Task> getTasksByUserName(String username) {
+
+        List<Task> allTasks = taskRepository.findAll();
+        return allTasks.stream()
+                .filter(task -> task.getDeveloper().getUsername().equals(username) || task.getAnalyst().getUsername().equals(username))
+                .collect(Collectors.toList());
+    }
+
 
 }

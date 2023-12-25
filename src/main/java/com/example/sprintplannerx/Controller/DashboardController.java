@@ -1,14 +1,21 @@
 package com.example.sprintplannerx.Controller;
 
 
+import com.example.sprintplannerx.Entities.Event;
+import com.example.sprintplannerx.Entities.Task;
 import com.example.sprintplannerx.Service.EventService;
 import com.example.sprintplannerx.Service.SecurityService;
 import com.example.sprintplannerx.Service.TaskService;
+import com.example.sprintplannerx.Service.UserService;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.security.Principal;
+import java.util.List;
 
 @Controller
 @RequestMapping()
@@ -17,20 +24,35 @@ public class DashboardController {
     private final SecurityService securityService;
     private final TaskService taskService;
     private final EventService eventService;
+    private final UserService userService;
 
-    public DashboardController(SecurityService securityService, TaskService taskService, EventService eventService) {
+    public DashboardController(SecurityService securityService, TaskService taskService, EventService eventService, UserService userService) {
         this.securityService = securityService;
         this.taskService = taskService;
         this.eventService = eventService;
+        this.userService = userService;
     }
 
     @GetMapping("/dashboard")
-    public String greeting(Model model) {
+    public String greeting(Model model, Principal principal) {
         Authentication authentication = securityService.getAuthentication();
 
+        String username = principal.getName();
+
+
         model.addAttribute("authentication", authentication);
-        model.addAttribute("starredTasks", taskService.getStarredTasks(authentication)); // currentUser: Oturum açmış kullanıcı nesnesi
-        model.addAttribute("registeredEvents", eventService.getRegisteredEvents(authentication));
+
+
+        List<Task> starredTasks = taskService.getStarredTasks(username);
+        model.addAttribute("starredTasks", starredTasks);
+
+        Task onTrackedTask = userService.getOnTrackTaskByUsername(username);
+        model.addAttribute("onTrackedTask",onTrackedTask);
+
+        // Registered Events için
+        // (Burada bir servis metodu oluşturmanız gerekecek, benim yazdığım kod bir örnektir)
+        List<Event> registeredEvents = eventService.getRegisteredEvents(authentication);
+        model.addAttribute("registeredEvents", registeredEvents);
 
         return "dashboard";
     }

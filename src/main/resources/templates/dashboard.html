@@ -10,6 +10,7 @@
           rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
           crossorigin="anonymous">
+    <link rel=”stylesheet” href=”https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css” />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
             integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
             crossorigin="anonymous"></script>
@@ -22,20 +23,45 @@
             position: sticky;
             top: 0;
             z-index: 1000;
+            width: 200px;
+            background-color: rgba(13, 56, 27, 0.85);
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
         }
         #sidebar .nav-link {
             color: lightgray; /* Varsayılan metin rengi */
         }
+        #sidebar .navbar-brand {
+            color: #ffcc1d; /* Varsayılan metin rengi */
+            font-size: x-large;
+        }
 
         #sidebar .nav-link.active {
             color: white; /* Tıklanan öğenin metin rengi */
-            background-color: gray; /* Tıklanan öğenin arka plan rengi */
+            background-color: #932828; /* Tıklanan öğenin arka plan rengi */
             text-decoration: underline; /* Altı çizgi ekle */
         }
 
         #sidebar .nav-link:hover {
             color: white; /* Fare üzerine gelindiğinde metin rengi */
         }
+
+
+        #sidebarBottom .nav-link {
+            color: lightgray; /* Varsayılan metin rengi */
+        }
+
+        #sidebarBottom .nav-link.active {
+            color: white; /* Tıklanan öğenin metin rengi */
+            background-color: gray; /* Tıklanan öğenin arka plan rengi */
+            text-decoration: underline; /* Altı çizgi ekle */
+        }
+
+        #sidebarBottom .nav-link:hover {
+            color: white; /* Fare üzerine gelindiğinde metin rengi */
+        }
+
     </style>
     <script>
         function selectNavItem(element) {
@@ -62,29 +88,7 @@
 
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" th:href="@{/dashboard}">SplannerX</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <ul class="nav navbar-nav">
-                <li class="dropdown">
-                    <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Menu
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Profile</a></li>
-                            <li><a class="dropdown-item" th:href="@{/logout}">Logout</a></li>
-                        </ul>
-                    </div>
-                </li>
-            </ul>
-        </div>
 
-
-    </nav>
     <!--            <h1> Welcome to Spring Security world!</h1>-->
     <!--            <div th:with="authentication=${authentication}">-->
     <!--                <p>Username: <span th:text="${authentication.name}"></span></p>-->
@@ -103,52 +107,101 @@
 
     <div class="container-fluid">
         <div class="row">
-            <!-- Sidebar -->
-            <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-secondary">
+            <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block">
                 <div class="position-sticky">
                     <ul class="nav flex-column">
                         <li class="nav-item">
+                            <!-- SplannerX sayfa logosu gibi -->
+                            <a class="navbar-brand" th:href="@{/dashboard}">
+<!--                                <img src="/path/to/your/logo.png" alt="SplannerX Logo">-->
+                                SplannerX
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
                             <a class="nav-link" href="#" onclick="selectNavItemWId(this, 'home')">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-fill" viewBox="0 2 18 18">
+                                    <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293z"/>
+                                    <path d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6Z"/>
+                                </svg>
                                 Home
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/tasks" onclick="selectNavItemWId(this, 'tasks')">
+                            <a class="nav-link" href="/userTasks" onclick="selectNavItemWId(this, 'tasks')">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2-circle" viewBox="0 0 16 16">
+                                    <path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0"/>
+                                    <path d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l7-7z"/>
+                                </svg>
                                 Tasks
                             </a>
                         </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="starredTasksDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Starred Tasks
+                        <!-- Starred Tasks -->
+                        <hr>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/starred-tasks">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 1 16 18">
+                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                                </svg>
+                                Favorites
                             </a>
-                            <div class="dropdown-menu" aria-labelledby="starredTasksDropdown">
-                                <!-- Starred Tasks dropdown içeriği -->
+                            <ul class="list-group p-1">
                                 <th:block th:each="starredTask : ${starredTasks}">
-                                    <a class="dropdown-item" th:href="@{'/tasks/' + ${starredTask.ID}}" th:text="${starredTask.name}"></a>
+                                    <li class="list-group-item bg-transparent border-0">
+                                        <a th:href="@{'/tasks/' + ${starredTask.ID}}" th:text="${starredTask.name}"></a>
+                                    </li>
                                 </th:block>
-                            </div>
+                            </ul>
                         </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="registeredEventsDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Registered Events
+                        <br>
+                        <hr>
+                        <!-- Registered Events -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="/registered-events">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-collection-fill" viewBox="0 0 16 16">
+                                    <path d="M0 13a1.5 1.5 0 0 0 1.5 1.5h13A1.5 1.5 0 0 0 16 13V6a1.5 1.5 0 0 0-1.5-1.5h-13A1.5 1.5 0 0 0 0 6zM2 3a.5.5 0 0 0 .5.5h11a.5.5 0 0 0 0-1h-11A.5.5 0 0 0 2 3m2-2a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 0-1h-7A.5.5 0 0 0 4 1"/>
+                                </svg>
+                                Projects
                             </a>
-                            <div class="dropdown-menu" aria-labelledby="registeredEventsDropdown">
-                                <!-- Registered Events dropdown içeriği -->
+                            <ul class="list-group p-1">
                                 <th:block th:each="event : ${registeredEvents}">
-                                    <a class="dropdown-item" th:href="@{'/events/' + ${event.id}}" th:text="${event.eventName}"></a>
+                                    <li class="list-group-item bg-transparent border-0">
+                                        <a th:href="@{'/events/' + ${event.id}}" th:text="${event.eventName}"></a>
+                                    </li>
                                 </th:block>
-                            </div>
+                            </ul>
                         </li>
                     </ul>
                 </div>
             </nav>
+            <div id="sidebarBottom" class="fixed-bottom">
+                <ul class="nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Profile</a>
+                    </li>
+                    <br>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/logout}">Logout</a>
+                    </li>
+                </ul>
+            </div>
+
 
             <!-- İkincil Başlık ve İki Farklı Bölüm -->
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
-                    <h1 class="h2">Task Name</h1>
+                    <div style="font-size: 1.5em;">
+                        <!-- Eğer onTrackedTask null değilse, task'ı göster -->
+                        <p>
+                            <span style="font-weight: bold">On Track:</span>
+                            <span th:if="${onTrackedTask != null}" th:text="${onTrackedTask.name}"></span>
+                        <!-- Eğer onTrackedTask null ise, mesajı göster -->
+                            <span th:unless="${onTrackedTask != null}">You are not tracking any task.</span>
+                        </p>
+                    </div>
                 </div>
                 <!-- Secondary Navbar -->
+                <!-- İkincil Navbar -->
                 <nav class="navbar navbar-expand-lg navbar-light bg-light" id="secondary_navbar">
                     <div class="container-fluid">
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#secondaryNavbar" aria-controls="secondaryNavbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -170,6 +223,7 @@
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="#" onclick="selectNavItem(this)">Dashboard</a>
+                                </li>
                             </ul>
                         </div>
                     </div>

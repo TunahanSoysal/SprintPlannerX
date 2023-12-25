@@ -26,6 +26,7 @@ public class Task {
     @JoinColumn(name = "analyst_id")
     private User Analyst;
 
+
     private Date DueDate;
 
     private Integer finalSP;

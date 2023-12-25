@@ -1,6 +1,7 @@
 package com.example.sprintplannerx.Service;
 
 import com.example.sprintplannerx.Entities.Role;
+import com.example.sprintplannerx.Entities.Task;
 import com.example.sprintplannerx.Entities.User;
 import com.example.sprintplannerx.Repository.RoleRepository;
 import com.example.sprintplannerx.Repository.UserRepository;
@@ -81,5 +82,11 @@ public class UserService {
             user.getRoles().add(role);
             userRepository.save(user);
         }
+    }
+
+    public Task getOnTrackTaskByUsername(String username) {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
+        return user.getOnTrackedTask();
     }
 }

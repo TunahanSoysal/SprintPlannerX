@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.sql.Date;
 import java.util.List;
 
@@ -28,6 +29,14 @@ public class TaskController {
         model.addAttribute("tasks", tasks);
         return "tasks";
     }
+    @GetMapping("userTasks")
+    public String listTasksUser(Model model, Principal principal) {
+        String username = principal.getName();
+        List<Task> tasks = taskService.getTasksByUserName(username);
+        model.addAttribute("tasks", tasks);
+        return "tasks";
+    }
+
 
     @GetMapping("/{id}")
     public Task getTaskById(@PathVariable Long id) {
