@@ -12,11 +12,8 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" th:href="@{/}">Sprint Planner X</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+    <div class="container-fluid justify-content-center">
+        <a class="navbar-brand text-center" th:href="@{/}">SprintPlannerX</a>
     </div>
 </nav>
 <br /><br />
@@ -32,8 +29,9 @@
             </div>
 
             <div class="card">
-                <div class="card-header">
-                    <h2 class="text-center">Login</h2>
+                <div class="card-header bg-dark text-center d-flex align-items-center">
+<!--                    <h2 class="text-center">Login</h2>-->
+                    <img class="mx-auto d-block" id="logo" th:src="@{/images/SprintPlannerLogo.png}" alt="SplannerX" width="200px" >
                 </div>
                 <div class="card-body">
                     <form
@@ -43,7 +41,7 @@
                             class="form-horizontal"
                     >
                         <div class="form-group mb-3">
-                            <label class="control-label"> Email Or Username</label>
+                            <label for="username" class="control-label"> Email Or Username</label>
                             <input
                                     type="text"
                                     id="username"
@@ -54,7 +52,7 @@
                         </div>
 
                         <div class="form-group mb-3">
-                            <label class="control-label"> Password</label>
+                            <label for="password" class="control-label"> Password</label>
                             <input
                                     type="password"
                                     id="password"

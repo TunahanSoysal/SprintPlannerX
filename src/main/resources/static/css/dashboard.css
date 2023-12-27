@@ -1,0 +1,66 @@
+#secondary_navbar .active {
+    text-decoration: underline;
+}
+#sidebar {
+    height: 100vh;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    width: 200px;
+    background-color: rgba(0, 0, 0, 0.79);
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+}
+#sidebar .nav-link {
+    color: lightgray; /* Varsayılan metin rengi */
+}
+/*#sidebar .navbar-brand {*/
+/*    color: #ffcc1d; !* Varsayılan metin rengi *!*/
+/*    font-size: x-large;*/
+/*}*/
+
+#sidebar .nav-link.active {
+    color: white; /* Tıklanan öğenin metin rengi */
+    background-color: #932828; /* Tıklanan öğenin arka plan rengi */
+    text-decoration: underline; /* Altı çizgi ekle */
+}
+
+#sidebar .nav-link:hover {
+    color: white; /* Fare üzerine gelindiğinde metin rengi */
+}
+#sidebar .nav-item{
+    width: 200px;
+}
+
+
+#sidebarBottom .nav-link {
+    color: lightgray; /* Varsayılan metin rengi */
+}
+
+#sidebarBottom .nav-link.active {
+    color: white; /* Tıklanan öğenin metin rengi */
+    background-color: gray; /* Tıklanan öğenin arka plan rengi */
+    text-decoration: underline; /* Altı çizgi ekle */
+}
+
+#sidebarBottom .nav-link:hover {
+    color: white; /* Fare üzerine gelindiğinde metin rengi */
+}
+#onTrackedTaskName{
+    text-decoration: underline;
+}
+.favoriteListItem{
+    color: #d1d3e2;
+}
+.favoriteListItem a:hover{
+    color: #932828;
+}
+#a:hover{
+    color: #932828;
+}
+#logo{
+    --bs-gutter-x: 1.5rem;
+    margin-left: calc(var(--bs-gutter-x) * -.5);
+}

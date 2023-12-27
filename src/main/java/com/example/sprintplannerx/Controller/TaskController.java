@@ -14,7 +14,7 @@ import java.sql.Date;
 import java.util.List;
 
 @Controller
-@RequestMapping()
+@RequestMapping("tasks")
 public class TaskController {
     @Autowired
     private TaskService taskService;
@@ -23,7 +23,7 @@ public class TaskController {
 //    public List<Task> getAllTasks() {
 //        return taskService.getAllTasks();
 //    }
-    @GetMapping("tasks")
+    @GetMapping()
     public String listTasks(Model model) {
         List<Task> tasks = taskService.getAllTasks();
         model.addAttribute("tasks", tasks);
