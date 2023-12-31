@@ -17,6 +17,6 @@ public class TaskComment {
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "task_id")
+    @JoinColumn
     private Task Task;
 }
