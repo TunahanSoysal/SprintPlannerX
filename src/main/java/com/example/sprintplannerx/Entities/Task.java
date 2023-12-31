@@ -1,6 +1,7 @@
 package com.example.sprintplannerx.Entities;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -31,6 +32,7 @@ public class Task {
 
     private Integer finalSP;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "event_id")
     private Event Event;

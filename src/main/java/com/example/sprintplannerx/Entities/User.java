@@ -1,6 +1,7 @@
 package com.example.sprintplannerx.Entities;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -25,8 +26,9 @@ public class User {
     @Column(nullable = false)
     private String password;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "task_id")
+    @JoinColumn(name = "tracked_task")
     private Task onTrackedTask;
 
 

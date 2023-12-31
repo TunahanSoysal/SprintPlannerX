@@ -5,13 +5,10 @@ import com.example.sprintplannerx.Entities.Task;
 import com.example.sprintplannerx.Entities.User;
 import com.example.sprintplannerx.Repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -59,6 +56,22 @@ public class TaskService {
         return allTasks.stream()
                 .filter(task -> task.getDeveloper().getUsername().equals(username) || task.getAnalyst().getUsername().equals(username))
                 .collect(Collectors.toList());
+    }
+
+    public int getDoneTaskCountForUser(String username) {
+        return taskRepository.getDoneTaskCountForUser(username);
+    }
+    public int getToDoTaskCountForUser(String username) {
+        return taskRepository.getToDoTaskCountForUser(username);
+    }
+    public int getOverDueTaskCountForUser(String username) {
+        return taskRepository.getOverdueTaskCountForUser(username);
+    }
+
+    public int getTotalTaskCountForUser(String username) {
+        return getDoneTaskCountForUser(username)
+                +getOverDueTaskCountForUser(username)
+                +getToDoTaskCountForUser(username);
     }
 
 

@@ -1,0 +1,35 @@
+.task-list {
+    list-style-type: none;
+    min-height: 200px;
+    border: 2px solid #d1d3e2;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    padding: 10px;
+}
+
+.task {
+    margin: 5px 0;
+    padding: 10px;
+    background-color: #424547;
+    border: 1px solid #d1d3e2;
+    cursor: grab;
+    border-radius: 5px;
+    color: #d1d3e2;
+    transition: background-color 1s ease-in-out;
+}
+
+.task.dragging {
+    background-color: #424547;
+    color: #d1d3e2;
+    border-color: #d1d3e2;
+    opacity: 0.6;
+}
+
+.dragging{
+    opacity: 1;
+    width: 100%;
+}
+
+.task-list.drag-over {
+    border: 2px dashed #495057;
+}

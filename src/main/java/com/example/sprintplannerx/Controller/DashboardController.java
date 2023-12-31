@@ -33,16 +33,42 @@ public class DashboardController {
     }
 
     @GetMapping("/dashboard")
-    public String greeting(Model model, Principal principal) {
+    public String greeting(Model model) {
         Authentication authentication = securityService.getAuthentication();
+        model.addAttribute("authentication", authentication);
+
+        importModels(model, authentication);
+
+        return "index";
+    }
+
+    @GetMapping("/dashboard2")
+    public String getDashboard2(Model model) {
+        Authentication authentication = securityService.getAuthentication();
+        model.addAttribute("authentication", authentication);
+        importModels(model, authentication);
+
+        return "dashboard2";
+    }
+
+    private void importModels(Model model, Principal principal) {
 
         String username = principal.getName();
 
+        int doneTaskCount = taskService.getDoneTaskCountForUser(username);
+        model.addAttribute("doneTaskCount",doneTaskCount);
 
+        int toDoTaskCount = taskService.getToDoTaskCountForUser(username);
+        model.addAttribute("toDoTaskCount",toDoTaskCount);
+
+        int overdueTaskCount = taskService.getOverDueTaskCountForUser(username);
+        model.addAttribute("overdueTaskCount",overdueTaskCount);
+
+        int totalTaskCount = taskService.getTotalTaskCountForUser(username);
+        model.addAttribute("totalTaskCount",totalTaskCount);
+
+        Authentication authentication = securityService.getAuthentication();
         model.addAttribute("authentication", authentication);
-
-        //model.addAttribute("logo", "resources/static/images/logo.png");
-
 
         List<Task> starredTasks = taskService.getStarredTasks(username);
         model.addAttribute("starredTasks", starredTasks);
@@ -53,9 +79,10 @@ public class DashboardController {
 
         List<Event> registeredEvents = eventService.getRegisteredEvents(authentication);
         model.addAttribute("registeredEvents", registeredEvents);
-
-        return "dashboard";
     }
+
+    @GetMapping("/board")
+    public String getBoard() {return "board";}
 
 
     @GetMapping("/login")

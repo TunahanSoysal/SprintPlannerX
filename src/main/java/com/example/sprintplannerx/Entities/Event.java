@@ -1,5 +1,6 @@
 package com.example.sprintplannerx.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -21,10 +22,11 @@ public class Event {
 
     private Date endDate;
 
+    @JsonIgnore
     @OneToMany
     private List<Task> tasks = new ArrayList<>();
 
     @OneToMany
-    private List<User> users = new ArrayList<User>();
+    private List<User> users = new ArrayList<>();
 
 }

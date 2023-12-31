@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 >
 <head>
     <meta charset="UTF-8">
@@ -16,6 +15,8 @@
             integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
             crossorigin="anonymous"></script>
     <script th:src="@{/js/dashboard.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/board.css}">
+    <script th:src="@{/js/board.js}"></script>
 </head>
 
 <body>
@@ -118,80 +119,24 @@
                         <div class="collapse navbar-collapse border-bottom" id="secondaryNavbar">
                             <ul class="navbar-nav">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/todo" onclick="selectNavItem(this)">List</a>
+                                    <a id="dashboard" class="nav-link active" href="#" onclick="loadContent('dashboard2',this)">Dashboard</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#" onclick="selectNavItem(this)">Board</a>
+                                    <a class="nav-link" href="#" onclick="loadContent('board',this)">Board</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#" onclick="selectNavItem(this)">Timeline</a>
+                                    <a class="nav-link" href="#" onclick="loadContent('tasks',this)">List</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#" onclick="selectNavItem(this)">Calendar</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link active" href="#" onclick="selectNavItem(this)">Dashboard</a>
+                                    <a class="nav-link " href="#" onclick="selectNavItem(this)">Timeline</a>
                                 </li>
                             </ul>
                         </div>
                     </div>
                 </nav>
 
-                <div class="row">
+                <div id="contentContainer" class="row">
                     <!-- main -->
-                    <div class="row">
-                        <!-- 4 Kart -->
-                        <div class="col-md-3 mb-4">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 class="card-title">Proje 1</h5>
-                                    <p class="card-text">Proje 1 açıklaması buraya gelir.</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 mb-4">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 class="card-title">Proje 2</h5>
-                                    <p class="card-text">Proje 2 açıklaması buraya gelir.</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 mb-4">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 class="card-title">Proje 3</h5>
-                                    <p class="card-text">Proje 3 açıklaması buraya gelir.</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 mb-4">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 class="card-title">Proje 4</h5>
-                                    <p class="card-text">Proje 4 açıklaması buraya gelir.</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- 2 Kart -->
-                        <div class="col-md-6 mb-4">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 class="card-title">Önemli Notlar</h5>
-                                    <p class="card-text">Buraya önemli notlar ekleyebilirsiniz.</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 mb-4">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 class="card-title">Takvim</h5>
-                                    <p class="card-text">Buraya proje takvimini ekleyebilirsiniz.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </main>
         </div>
