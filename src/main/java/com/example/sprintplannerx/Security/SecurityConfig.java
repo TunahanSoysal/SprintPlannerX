@@ -30,7 +30,7 @@ public class SecurityConfig {
                         authorize
                                 .requestMatchers(new AntPathRequestMatcher("/register.html")).permitAll()
                                 .requestMatchers(new AntPathRequestMatcher("/register")).permitAll()
-                                .requestMatchers(new AntPathRequestMatcher("SprintPlannerLogo.png")).permitAll()
+                                .requestMatchers(new AntPathRequestMatcher("/images/**")).permitAll()
                                 .anyRequest().authenticated()
 
                 ).formLogin(
