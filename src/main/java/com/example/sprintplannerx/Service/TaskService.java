@@ -19,6 +19,13 @@ public class TaskService {
     public List<Task> getAllTasks() {
         return taskRepository.findAll();
     }
+    public List<Task> getTasksByStatus(String status) {
+        return taskRepository.findByStatus(status);
+    }
+
+    public List<Task> getUserTasksByStatus(String username,String status) {
+        return taskRepository.findByUserAndStatus(username,status);
+    }
 
     public Task getTaskById(Long id) {
         return taskRepository.findById(id).orElse(null);
@@ -71,7 +78,12 @@ public class TaskService {
     public int getTotalTaskCountForUser(String username) {
         return getDoneTaskCountForUser(username)
                 +getOverDueTaskCountForUser(username)
-                +getToDoTaskCountForUser(username);
+                 +getToDoTaskCountForUser(username);
+    }
+
+    public List<Task> getTasksByDueDateASC(String username){
+        return taskRepository.findAllOrderByDueDate(username);
+
     }
 
 

@@ -29,4 +29,6 @@ public class Event {
     @OneToMany
     private List<User> users = new ArrayList<>();
 
+    @OneToOne
+    private User lead;
 }

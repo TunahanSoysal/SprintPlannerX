@@ -1,21 +1,23 @@
 <div class="row">
     <!-- 4 Kart -->
     <div class="col-md-3 mb-4">
-        <div class="card">
+        <div class="card h-100">
             <div class="card-body">
                 <h5 class="card-title">Completed Tasks</h5>
                 <p class="card-text">
                     <span id="doneTaskCount" th:text="${doneTaskCount}" style="font-size: larger"></span>
+                    <a href="tasks/userTasksStatus?status=done" class="stretched-link"></a>
                 </p>
             </div>
         </div>
     </div>
     <div class="col-md-3 mb-4">
-        <div class="card">
+        <div class="card h-100">
             <div class="card-body">
                 <h5 class="card-title">Uncompleted Tasks</h5>
                 <p class="card-text">
                     <span id="toDoTaskCount" th:text="${toDoTaskCount}" style="font-size: larger"></span>
+                    <a href="tasks/userTasksStatus?status=todo" class="stretched-link"></a>
                 </p>
             </div>
         </div>
@@ -26,6 +28,7 @@
                 <h5 class="card-title">Overdue Tasks</h5>
                 <p class="card-text">
                     <span id="overdueTaskCount" th:text="${overdueTaskCount}" style="font-size: larger"></span>
+                    <a href="tasks/userTasksStatus?status=overdue" class="stretched-link"></a>
                 </p>
             </div>
         </div>
@@ -36,6 +39,7 @@
                 <h5 class="card-title">Total Tasks</h5>
                 <p class="card-text">
                     <span id="totalTaskCount" th:text="${totalTaskCount}" style="font-size: larger"></span>
+                    <a href="tasks/userTasks" class="stretched-link"></a>
                 </p>
             </div>
         </div>
@@ -45,8 +49,13 @@
     <div class="col-md-6 mb-4">
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title">Önemli Notlar</h5>
-                <p class="card-text">Buraya önemli notlar ekleyebilirsiniz.</p>
+                <h5 class="card-title">Upcoming Tasks</h5>
+                <p class="card-text">Due time'a göre en az vakit kalandan en yeniye doğru.</p>
+                <ul>
+                    <li th:each="task : ${upcomingTasks}">
+                        <span th:text="${task.name}"></span> - <span th:text="${task.dueDate}"></span>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>

@@ -19,13 +19,17 @@ public class TaskController {
     @Autowired
     private TaskService taskService;
 
-//    @GetMapping
-//    public List<Task> getAllTasks() {
-//        return taskService.getAllTasks();
-//    }
     @GetMapping()
-    public String listTasks(Model model) {
-        List<Task> tasks = taskService.getAllTasks();
+    public String getTasks(@RequestParam(name = "status", required = false) String status, Model model) {
+        List<Task> tasks;
+
+        if (status != null && !status.isEmpty()) {
+
+            tasks = taskService.getTasksByStatus(status);
+        } else {
+            tasks = taskService.getAllTasks();
+        }
+
         model.addAttribute("tasks", tasks);
         return "tasks";
     }
@@ -37,10 +41,19 @@ public class TaskController {
         return "tasks";
     }
 
+    @GetMapping("userTasksStatus")
+    public String listTasksUserByStatus(@RequestParam(name = "status", required = false) String status,Model model, Principal principal) {
+        String username = principal.getName();
+        List<Task> tasks = taskService.getUserTasksByStatus(username, status);
+        model.addAttribute("tasks", tasks);
+        return "tasks";
+    }
+
 
     @GetMapping("/{id}")
     public Task getTaskById(@PathVariable Long id) {
         return taskService.getTaskById(id);
+
     }
 
     @PostMapping

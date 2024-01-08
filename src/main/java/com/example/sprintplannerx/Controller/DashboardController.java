@@ -79,6 +79,9 @@ public class DashboardController {
 
         List<Event> registeredEvents = eventService.getRegisteredEvents(authentication);
         model.addAttribute("registeredEvents", registeredEvents);
+
+        List<Task> upcomingTasks = taskService.getTasksByDueDateASC(username);
+        model.addAttribute("upcomingTasks", upcomingTasks);
     }
 
     @GetMapping("/board")

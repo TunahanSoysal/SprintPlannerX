@@ -40,7 +40,4 @@ public class Task {
     private boolean isStarred;
 
 
-
-
-
 }

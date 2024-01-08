@@ -14,21 +14,21 @@
 
 }
 #sidebar .nav-link {
-    color: lightgray; /* Varsayılan metin rengi */
+    color: lightgray;
 }
 /*#sidebar .navbar-brand {*/
-/*    color: #ffcc1d; !* Varsayılan metin rengi *!*/
+/*    color: #ffcc1d;
 /*    font-size: x-large;*/
 /*}*/
 
 #sidebar .nav-link.active {
-    color: white; /* Tıklanan öğenin metin rengi */
-    background-color: #932828; /* Tıklanan öğenin arka plan rengi */
-    text-decoration: underline; /* Altı çizgi ekle */
+    color: white;
+    background-color: #932828;
+    text-decoration: underline;
 }
 
 #sidebar .nav-link:hover {
-    color: white; /* Fare üzerine gelindiğinde metin rengi */
+    color: white;
 }
 #sidebar .nav-item{
     width: 200px;
@@ -36,17 +36,17 @@
 
 
 #sidebarBottom .nav-link {
-    color: lightgray; /* Varsayılan metin rengi */
+    color: lightgray;
 }
 
 #sidebarBottom .nav-link.active {
-    color: white; /* Tıklanan öğenin metin rengi */
-    background-color: gray; /* Tıklanan öğenin arka plan rengi */
-    text-decoration: underline; /* Altı çizgi ekle */
+    color: white;
+    background-color: gray;
+    text-decoration: underline;
 }
 
 #sidebarBottom .nav-link:hover {
-    color: white; /* Fare üzerine gelindiğinde metin rengi */
+    color: white;
 }
 #onTrackedTaskName{
     text-decoration: underline;
@@ -59,6 +59,10 @@
 }
 #a:hover{
     color: #932828;
+}
+.card:hover{
+    box-shadow: 0 4px 10px
+    rgba(0,0,0,0.16), 0 4px 10px rgba(0,0,0,0.23);
 }
 #logo{
     --bs-gutter-x: 1.5rem;

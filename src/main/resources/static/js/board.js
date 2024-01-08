@@ -18,13 +18,11 @@ function drop(event, targetListId) {
 
     var targetList = document.getElementById(targetListId);
 
-    // Aynı listeye bırakıldığında işlemi gerçekleştirme
     if (event.target.tagName === "LI" && event.target.parentElement.id === targetListId) {
         resetDraggingStyles();
         return;
     }
 
-    // Aynı isimde başka bir görev varsa işlemi gerçekleştirme
     if (isDuplicateTask(targetList, data)) {
         resetDraggingStyles();
         return;

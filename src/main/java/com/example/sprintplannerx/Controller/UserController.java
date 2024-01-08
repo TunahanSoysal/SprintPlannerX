@@ -20,10 +20,6 @@ public class UserController {
         return userService.findAllUsers();
     }
 
-//    @PostMapping
-//    public User createUser(@RequestBody User newUser){
-//        return userService.saveUser(newUser);
-//    }
 
     @GetMapping("/{userId}")
     public User getOneUser(@PathVariable Integer userId){
