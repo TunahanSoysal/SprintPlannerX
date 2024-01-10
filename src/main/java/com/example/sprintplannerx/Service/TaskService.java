@@ -4,17 +4,23 @@ import com.example.sprintplannerx.Entities.Event;
 import com.example.sprintplannerx.Entities.Task;
 import com.example.sprintplannerx.Entities.User;
 import com.example.sprintplannerx.Repository.TaskRepository;
+import com.example.sprintplannerx.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 public class TaskService {
     @Autowired
     private TaskRepository taskRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+
 
     public List<Task> getAllTasks() {
         return taskRepository.findAll();
@@ -41,6 +47,18 @@ public class TaskService {
         task.setFinalSP(finalSP);
         task.setEvent(event);
         return taskRepository.save(task);
+    }
+    public Task updateOneTask(Long taskId, Task newTask) {
+        Optional<Task> task = taskRepository.findById(taskId);
+        if (task.isPresent()){
+            Task foundTask = task.get();
+            foundTask.setName(newTask.getName());
+            foundTask.setStatus(newTask.getStatus());
+            taskRepository.save(foundTask);
+            return foundTask;
+        }else{
+            return  null;
+        }
     }
 
     public void deleteTask(Long id) {

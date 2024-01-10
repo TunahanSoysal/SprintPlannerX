@@ -70,15 +70,85 @@ function openTaskDetails(button) {
 }
 
 function showTaskDetails(task) {
-    document.getElementById("taskDetailsContainer").innerHTML = "<ul>" +
-        "<li><strong>ID:</strong> " + task.id + "</li>" +
-        "<li><strong>Name:</strong> " + task.name + "</li>" +
-        "<li><strong>Status:</strong> " + task.status + "</li>" +
-        "<li><strong>Developer:</strong> " + task.developer + "</li>" +
-        "<li><strong>Analyst:</strong> " + task.analyst + "</li>" +
-        "<li><strong>Due Date:</strong> " + task.dueDate + "</li>" +
-        "<li><strong>Final SP:</strong> " + task.finalSP + "</li>" +
-        "<li><strong>Event:</strong> " + task.event + "</li>" +
-        "<li><strong>Is Starred:</strong> " + task.isStarred + "</li>" +
-        "</ul>";
+    var taskIdInput = document.getElementById("taskId");
+    if (taskIdInput) {
+        taskIdInput.value = task.id;
+    }
+
+    var taskNameInput = document.getElementById("taskName");
+    if (taskNameInput) {
+        taskNameInput.value = task.name;
+    }
+
+    var taskStatusInput = document.getElementById("taskStatus");
+    if (taskStatusInput) {
+        taskStatusInput.value = task.status;
+    }
+
+    var taskDeveloperInput = document.getElementById("taskDeveloper");
+    if (taskDeveloperInput) {
+        taskDeveloperInput.value = task.developer;
+    }
+
+    var taskAnalystInput = document.getElementById("taskAnalyst");
+    if (taskAnalystInput) {
+        taskAnalystInput.value = task.analyst;
+    }
+
+    var taskDueDateInput = document.getElementById("taskDueDate");
+    if (taskDueDateInput) {
+        taskDueDateInput.value = task.dueDate;
+    }
+
+    var taskFinalSPInput = document.getElementById("taskFinalSP");
+    if (taskFinalSPInput) {
+        taskFinalSPInput.value = task.finalSP;
+    }
+
+    var taskEventInput = document.getElementById("taskEvent");
+    if (taskEventInput) {
+        taskEventInput.value = task.event;
+    }
+
+    var taskIsStarredInput = document.getElementById("taskIsStarred");
+    if (taskIsStarredInput) {
+        taskIsStarredInput.value = task.isStarred;
+    }
+}
+
+
+function saveTaskDetails() {
+    // Burada formdaki verileri alıp bir HTTP isteği yapabilir ve veriyi güncelleyebilirsiniz.
+    // Örnek olarak bir fetch kullanalım:
+    var taskId = document.getElementById("taskId").value;
+    var taskName = document.getElementById("taskName").value;
+    var taskStatus = document.getElementById("taskStatus").value;
+    var taskDeveloper = document.getElementById("taskDeveloper");
+    var taskAnalyst = document.getElementById("taskAnalyst");
+    var taskDueDate = document.getElementById("taskDueDate").value;
+    var taskFinalSP = document.getElementById("taskFinalSP").value;
+    var taskEvent = document.getElementById("taskEvent").value;
+    var taskIsStarred = document.getElementById("taskIsStarred").value;
+
+
+    fetch('/tasks/'+taskId, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            name: taskName,
+            status: taskStatus,
+            // ... Diğer verileri ekleyin ...
+        }),
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Success:', data);
+            alert('Task details saved successfully!');
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+            alert('An error occurred while saving task details.');
+        });
 }

@@ -69,6 +69,12 @@ public class TaskController {
         return taskService.createTask(name, status, developer, analyst, dueDate, finalSP, event);
     }
 
+    @PutMapping(value ="/{taskId}", consumes = "application/json", produces = "application/json")
+    public Task updateOneTask(@PathVariable Long taskId,
+                              @RequestBody Task newTask){
+        return taskService.updateOneTask(taskId,newTask);
+    }
+
     @DeleteMapping("/{id}")
     public void deleteTask(@PathVariable Long id) {
         taskService.deleteTask(id);
