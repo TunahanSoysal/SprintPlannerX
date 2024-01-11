@@ -3,6 +3,7 @@ package com.example.sprintplannerx.Controller;
 
 import com.example.sprintplannerx.Entities.Event;
 import com.example.sprintplannerx.Entities.Task;
+import com.example.sprintplannerx.Entities.User;
 import com.example.sprintplannerx.Service.EventService;
 import com.example.sprintplannerx.Service.SecurityService;
 import com.example.sprintplannerx.Service.TaskService;
@@ -21,6 +22,7 @@ import java.util.List;
 public class DashboardController {
 
     private final SecurityService securityService;
+
     private final TaskService taskService;
     private final EventService eventService;
     private final UserService userService;
@@ -55,6 +57,8 @@ public class DashboardController {
 
         String username = principal.getName();
 
+
+
         int doneTaskCount = taskService.getDoneTaskCountForUser(username);
         model.addAttribute("doneTaskCount",doneTaskCount);
 
@@ -82,6 +86,12 @@ public class DashboardController {
 
         List<Task> upcomingTasks = taskService.getTasksByDueDateASC(username);
         model.addAttribute("upcomingTasks", upcomingTasks);
+
+        List<Task> tasks = taskService.getTasksByUserName(username);
+        model.addAttribute("UserTasks", tasks);
+
+        List<User> allUsers = userService.findAllUsers();
+        model.addAttribute("allUsers",allUsers);
     }
 
     @GetMapping("/board")

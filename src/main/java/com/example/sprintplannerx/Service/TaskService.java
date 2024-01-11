@@ -50,10 +50,12 @@ public class TaskService {
     }
     public Task updateOneTask(Long taskId, Task newTask) {
         Optional<Task> task = taskRepository.findById(taskId);
+
         if (task.isPresent()){
             Task foundTask = task.get();
             foundTask.setName(newTask.getName());
             foundTask.setStatus(newTask.getStatus());
+            taskRepository.updateTaskAnalyst(foundTask.getID(), newTask.getAnalyst().getUsername());
             taskRepository.save(foundTask);
             return foundTask;
         }else{

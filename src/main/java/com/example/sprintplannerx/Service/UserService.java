@@ -4,6 +4,7 @@ import com.example.sprintplannerx.Entities.Role;
 import com.example.sprintplannerx.Entities.Task;
 import com.example.sprintplannerx.Entities.User;
 import com.example.sprintplannerx.Repository.RoleRepository;
+import com.example.sprintplannerx.Repository.TaskRepository;
 import com.example.sprintplannerx.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -18,12 +19,14 @@ import java.util.Optional;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final TaskRepository taskRepository;
     private final RoleRepository roleRepository;
     private final BCryptPasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserService(UserRepository userRepository, RoleRepository roleRepository, BCryptPasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, TaskRepository taskRepository, RoleRepository roleRepository, BCryptPasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.taskRepository = taskRepository;
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
     }
@@ -38,6 +41,7 @@ public class UserService {
         return userRepository.findById(userId).orElse(null);
     }
 
+    public User getUserByUsername(String username){return userRepository.findByUsername(username).orElse(null);}
     public User updateOneUser(Integer userId, User newUser) {
         Optional<User> user = userRepository.findById(userId);
         if (user.isPresent()){
@@ -88,5 +92,14 @@ public class UserService {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
         return user.getOnTrackedTask();
+    }
+    public void updateOnTrackTaskByID(Integer userId, Long taskId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found with this ID: " + userId));
+
+        Task newTask = taskRepository.getTaskByID(taskId);
+
+        user.setOnTrackedTask(newTask);
+        System.out.println("new task ="+user.getOnTrackedTask());
     }
 }

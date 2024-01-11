@@ -8,15 +8,15 @@ function selectNavItem(element) {
 
     element.classList.add('active');
 }
-// function selectNavItemWId(element, itemId) {
-//     var navLinks = document.querySelectorAll('#sidebar .nav-link');
-//
-//     navLinks.forEach(function (link) {
-//         link.classList.remove('active');
-//     });
-//
-//     element.classList.add('active');
-// }
+function selectNavItemWId(element, itemId) {
+    var navLinks = document.querySelectorAll('#sidebar .nav-link');
+
+    navLinks.forEach(function (link) {
+        link.classList.remove('active');
+    });
+
+    element.classList.add('active');
+}
 
 document.addEventListener("DOMContentLoaded", function () {
     const defaultLinkId = "dashboard";
@@ -139,6 +139,7 @@ function saveTaskDetails() {
         body: JSON.stringify({
             name: taskName,
             status: taskStatus,
+            analyst:taskAnalyst
             // ... Diğer verileri ekleyin ...
         }),
     })

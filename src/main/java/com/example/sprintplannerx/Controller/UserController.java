@@ -1,5 +1,6 @@
 package com.example.sprintplannerx.Controller;
 
+
 import com.example.sprintplannerx.Entities.User;
 import com.example.sprintplannerx.Service.UserService;
 import org.springframework.web.bind.annotation.*;
@@ -35,5 +36,10 @@ public class UserController {
     @DeleteMapping("/{userId}")
     public void deleteOneUser(@PathVariable Integer userId){
         userService.deleteUserById(userId);
+    }
+
+    @PutMapping("/{userId}/{taskId}")
+    public void updateOnTrackedTask(@PathVariable Integer userId,@PathVariable Long taskId){
+         userService.updateOnTrackTaskByID(userId,taskId);
     }
 }

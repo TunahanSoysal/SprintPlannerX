@@ -60,6 +60,12 @@
 #a:hover{
     color: #932828;
 }
+.card{
+    margin: 20px;
+}
+.card-text{
+    margin-top: 10px;
+}
 .card:hover{
     box-shadow: 0 4px 10px
     rgba(0,0,0,0.16), 0 4px 10px rgba(0,0,0,0.23);

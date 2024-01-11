@@ -4,6 +4,7 @@ import com.example.sprintplannerx.Entities.Event;
 import com.example.sprintplannerx.Entities.Task;
 import com.example.sprintplannerx.Entities.User;
 import com.example.sprintplannerx.Service.TaskService;
+import com.example.sprintplannerx.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +19,9 @@ import java.util.List;
 public class TaskController {
     @Autowired
     private TaskService taskService;
+
+    @Autowired
+    private UserService userService;
 
     @GetMapping()
     public String getTasks(@RequestParam(name = "status", required = false) String status, Model model) {
@@ -38,14 +42,21 @@ public class TaskController {
         String username = principal.getName();
         List<Task> tasks = taskService.getTasksByUserName(username);
         model.addAttribute("tasks", tasks);
+        model.addAttribute("user",username);
+        List<User> allUsers = userService.findAllUsers();
+        model.addAttribute("allUsers",allUsers);
         return "tasks";
     }
 
     @GetMapping("userTasksStatus")
     public String listTasksUserByStatus(@RequestParam(name = "status", required = false) String status,Model model, Principal principal) {
         String username = principal.getName();
+        User user = userService.getUserByUsername(username);
         List<Task> tasks = taskService.getUserTasksByStatus(username, status);
         model.addAttribute("tasks", tasks);
+        model.addAttribute("user",user);
+        List<User> allUsers = userService.findAllUsers();
+        model.addAttribute("allUsers",allUsers);
         return "tasks";
     }
 
