@@ -138,8 +138,7 @@ function saveTaskDetails() {
         },
         body: JSON.stringify({
             name: taskName,
-            status: taskStatus,
-            analyst:taskAnalyst
+            status: taskStatus
             // ... Diğer verileri ekleyin ...
         }),
     })
@@ -152,4 +151,31 @@ function saveTaskDetails() {
             console.error('Error:', error);
             alert('An error occurred while saving task details.');
         });
+}
+
+$(document).ready(function () {
+    // Modal açıldığında formu sıfırla
+    $('#createTaskModal').on('show.bs.modal', function (e) {
+        $('#createTaskForm')[0].reset();
+    });
+
+    // Form submit olduğunda
+    $('#createTaskForm').submit(function (e) {
+        e.preventDefault();
+
+        // Burada form verilerini işleyebilir ve task oluşturabilirsiniz
+        var taskName = $('#taskName').val();
+        // Diğer form verilerini de al
+
+        // Task oluşturma fonksiyonunu çağırabilirsiniz
+        createTask(taskName);
+
+        // Modalı kapat
+        $('#createTaskModal').modal('hide');
+    });
+});
+
+function createTask(taskName) {
+    // Burada task oluşturma işlemini yapabilirsiniz
+    // Örneğin, bir API'ye POST isteği göndererek
 }

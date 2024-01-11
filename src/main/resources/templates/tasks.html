@@ -19,8 +19,6 @@
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"
                 integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
                 crossorigin="anonymous"></script>
-
-
         <script>
             function openTaskDetails(button) {
                 var taskId = button.dataset.taskId;
@@ -199,7 +197,7 @@
                                     <div class="mb-3">
                                         <label for="taskAnalyst" class="form-label">Analyst</label>
 <!--                                        <input type="text" class="form-control" id="taskAnalyst" value="" >-->
-                                        <select class="form-select" id="taskAnalyst">
+                                        <select class="form-select" id="taskAnalyst" th:field="*{user}">
                                             <option th:each="user: ${allUsers}" th:text="${user.username}" th:value="${user.username}"></option>
                                         </select>
                                     </div>

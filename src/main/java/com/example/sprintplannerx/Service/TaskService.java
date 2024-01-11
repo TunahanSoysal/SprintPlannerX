@@ -55,7 +55,6 @@ public class TaskService {
             Task foundTask = task.get();
             foundTask.setName(newTask.getName());
             foundTask.setStatus(newTask.getStatus());
-            taskRepository.updateTaskAnalyst(foundTask.getID(), newTask.getAnalyst().getUsername());
             taskRepository.save(foundTask);
             return foundTask;
         }else{

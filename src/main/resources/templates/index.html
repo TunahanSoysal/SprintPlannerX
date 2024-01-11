@@ -94,11 +94,17 @@
                             <!-- Eğer onTrackedTask null değilse, task'ı göster -->
                             <p>
                                 <span style="font-weight: bold">On Track:</span>
-                                <span id="onTrackedTaskName" th:if="${onTrackedTask != null}" th:text="${onTrackedTask.name}"></span>
+                                <span id="onTrackedTaskName" th:if="${onTrackedTask != null}" th:text="${onTrackedTask.event.eventName+'/'+onTrackedTask.name}"></span>
                             <!-- Eğer onTrackedTask null ise, mesajı göster -->
                                 <span th:unless="${onTrackedTask != null}">You are not tracking any task.</span>
                             </p>
                         </div>
+
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createTaskModal">
+                            Create Task
+                        </button>
+
                     </div>
                     <!-- Secondary Navbar -->
                     <nav class="navbar navbar-expand-lg navbar-light bg-light" id="secondary_navbar">
@@ -128,6 +134,26 @@
                     <div id="contentContainer" class="row">
                         <!-- main -->
                     </div>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="createTaskModal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="ModalLabel">Create Task</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    ...
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </main>
             </div>
         </div>

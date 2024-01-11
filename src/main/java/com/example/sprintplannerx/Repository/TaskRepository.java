@@ -35,6 +35,4 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
 
     Task getTaskByID(Long taskId);
 
-    @Query(value= "UPDATE Task t SET t.Analyst = (SELECT u FROM User u WHERE u.username = :newAnalystUsername) WHERE t.ID = :taskId")
-    void updateTaskAnalyst(@Param("taskId") Long taskId, @Param("newAnalystUsername") String newAnalystUsername);
 }
