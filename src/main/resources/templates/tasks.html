@@ -45,7 +45,8 @@
                             <span th:text="${task.ID}"></span>
                             <span class="badge bg-dark" th:if="${task.developer.onTrackedTask == task && task.developer.name == user}">On Track Dev</span>
                             <span class="badge bg-dark" th:if="${task.analyst.onTrackedTask == task && task.analyst.name == user}">On Track Analyst</span>
-                            <span class="badge bg-dark" th:if="${task.analyst.onTrackedTask != task && task.developer.name == user}">Dev</span>
+                            <span class="badge bg-dark" th:if="${task.developer.onTrackedTask != task && task.developer.name == user}">Dev</span>
+                            <span class="badge bg-dark" th:if="${task.analyst.onTrackedTask != task && task.analyst.name == user}">Analyst</span>
                         </li>
                     </ul>
                 </div>
