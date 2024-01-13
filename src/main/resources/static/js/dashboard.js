@@ -42,6 +42,13 @@ function loadContent(page, element) {
 
 
 function openTaskDetails(button) {
+    var selectedTasks = document.querySelectorAll('.selected-task');
+    selectedTasks.forEach(function (selectedTask) {
+        selectedTask.classList.remove('selected-task');
+    });
+    button.classList.add('selected-task');
+
+
     var taskId = button.dataset.taskId;
     var taskName = button.dataset.taskName;
     var taskStatus = button.dataset.taskStatus;

@@ -74,3 +74,10 @@
     --bs-gutter-x: 1.5rem;
     margin-left: calc(var(--bs-gutter-x) * -.5);
 }
+
+.selected-task {
+    background-color: rgba(206, 206, 206, 0.75);
+}
+#taskItem:hover{
+    background-color: rgb(206, 206, 206);
+}
