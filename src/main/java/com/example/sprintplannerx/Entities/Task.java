@@ -27,7 +27,6 @@ public class Task {
     @JoinColumn(name = "analyst_id")
     private User Analyst;
 
-
     private Date DueDate;
 
     private Integer finalSP;
@@ -37,7 +36,12 @@ public class Task {
     @JoinColumn(name = "event_id")
     private Event Event;
 
+
+
     private boolean isStarred;
+    public void setIsStarred(boolean starred) {
+        isStarred = starred;
+    }
 
 
 }

@@ -57,7 +57,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title">Task Details</h5>
-                                <form>
+                                <form action="tasks/">
                                     <div class="mb-3">
                                         <label for="taskId" class="form-label">ID</label>
                                         <input type="text" class="form-control" id="taskId" value="" readonly >
@@ -72,12 +72,15 @@
                                     </div>
                                     <div class="mb-3">
                                         <label for="taskDeveloper" class="form-label">Developer</label>
-                                        <input type="text" class="form-control" id="taskDeveloper" value="" >
+<!--                                        <input type="text" class="form-control" id="taskDeveloper" value="" >-->
+                                        <select class="form-select" id="taskDeveloper" th:field="*{user}">
+                                            <option th:each="user: ${allUsers}" th:text="${user.username}" th:value="${user.username}"></option>
+                                        </select>
                                     </div>
                                     <div class="mb-3">
                                         <label for="taskAnalyst" class="form-label">Analyst</label>
 <!--                                        <input type="text" class="form-control" id="taskAnalyst" value="" >-->
-                                        <select class="form-select" id="taskAnalyst" th:field="*{user}">
+                                        <select class="form-select" id="taskAnalyst">
                                             <option th:each="user: ${allUsers}" th:text="${user.username}" th:value="${user.username}"></option>
                                         </select>
                                     </div>
@@ -86,16 +89,19 @@
                                         <input type="text" class="form-control" id="taskDueDate" value="" >
                                     </div>
                                     <div class="mb-3">
-                                        <label for="taskFinalSP" class="form-label">Final SP</label>
-                                        <input type="text" class="form-control" id="taskFinalSP" value="" >
+                                        <label for="taskFinalSp" class="form-label">Final SP</label>
+                                        <input type="number" class="form-control" id="taskFinalSp" value="" >
                                     </div>
                                     <div class="mb-3">
                                         <label for="taskEvent" class="form-label">Event</label>
-                                        <input type="text" class="form-control" id="taskEvent" value="" >
+<!--                                        <input type="text" class="form-control" id="taskEvent" value="" >-->
+                                        <select class="form-select" id="taskEvent">
+                                            <option th:each="event: ${allEvents}" th:text="${event.eventName}" th:value="${event.eventName}"></option>
+                                        </select>
                                     </div>
                                     <div class="mb-3">
                                         <label for="taskIsStarred" class="form-label">Is Starred</label>
-                                        <input type="text" class="form-control" id="taskIsStarred" value="">
+                                        <input type="checkbox" class="form-check-label" id="taskIsStarred" value="">
                                     </div>
                                     <button type="button" class="btn btn-primary" onclick="saveTaskDetails()">Save</button>
 

@@ -25,7 +25,6 @@ public class TaskCommentService {
 
     public List<TaskComment> findAllComments(){return taskCommentRepository.findAll();}
 
-
     public void saveComment(String text, User user, Long taskId) throws Exception{
         if (!text.isEmpty()){
             TaskComment comment = new TaskComment();

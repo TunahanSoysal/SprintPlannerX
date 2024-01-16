@@ -49,7 +49,6 @@ function drop(event, targetListId) {
             }
         }
     }
-
     resetDraggingStyles();
 }
 

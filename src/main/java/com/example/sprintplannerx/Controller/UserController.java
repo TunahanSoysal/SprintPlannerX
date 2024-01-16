@@ -21,7 +21,6 @@ public class UserController {
         return userService.findAllUsers();
     }
 
-
     @GetMapping("/{userId}")
     public User getOneUser(@PathVariable Integer userId){
         return userService.getOneUser(userId);
@@ -42,4 +41,5 @@ public class UserController {
     public void updateOnTrackedTask(@PathVariable Integer userId,@PathVariable Long taskId){
          userService.updateOnTrackTaskByID(userId,taskId);
     }
+
 }

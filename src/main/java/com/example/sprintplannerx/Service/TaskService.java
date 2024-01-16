@@ -3,6 +3,7 @@ package com.example.sprintplannerx.Service;
 import com.example.sprintplannerx.Entities.Event;
 import com.example.sprintplannerx.Entities.Task;
 import com.example.sprintplannerx.Entities.User;
+import com.example.sprintplannerx.Repository.EventRepository;
 import com.example.sprintplannerx.Repository.TaskRepository;
 import com.example.sprintplannerx.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,8 @@ public class TaskService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private EventRepository eventRepository;
 
     public List<Task> getAllTasks() {
         return taskRepository.findAll();
@@ -55,6 +58,11 @@ public class TaskService {
             Task foundTask = task.get();
             foundTask.setName(newTask.getName());
             foundTask.setStatus(newTask.getStatus());
+            foundTask.setDeveloper(userRepository.findByUsername(newTask.getDeveloper().getUsername()).orElse(null));
+            foundTask.setAnalyst(userRepository.findByUsername(newTask.getAnalyst().getUsername()).orElse(null));
+            foundTask.setFinalSP(newTask.getFinalSP());
+            foundTask.setIsStarred(newTask.isStarred());
+            //foundTask.setEvent(eventRepository.findByEventName(newTask.getEvent().getEventName()));
             taskRepository.save(foundTask);
             return foundTask;
         }else{
@@ -75,7 +83,6 @@ public class TaskService {
                 .collect(Collectors.toList());
     }
 
-
     public List<Task> getTasksByUserName(String username) {
 
         List<Task> allTasks = taskRepository.findAll();
@@ -83,6 +90,7 @@ public class TaskService {
                 .filter(task -> task.getDeveloper().getUsername().equals(username) || task.getAnalyst().getUsername().equals(username))
                 .collect(Collectors.toList());
     }
+
 
     public int getDoneTaskCountForUser(String username) {
         return taskRepository.getDoneTaskCountForUser(username);
@@ -104,6 +112,4 @@ public class TaskService {
         return taskRepository.findAllOrderByDueDate(username);
 
     }
-
-
 }

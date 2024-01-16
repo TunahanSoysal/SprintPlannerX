@@ -22,7 +22,6 @@ import java.util.List;
 public class DashboardController {
 
     private final SecurityService securityService;
-
     private final TaskService taskService;
     private final EventService eventService;
     private final UserService userService;
@@ -38,7 +37,6 @@ public class DashboardController {
     public String greeting(Model model) {
         Authentication authentication = securityService.getAuthentication();
         model.addAttribute("authentication", authentication);
-
         importModels(model, authentication);
 
         return "index";
@@ -56,8 +54,6 @@ public class DashboardController {
     private void importModels(Model model, Principal principal) {
 
         String username = principal.getName();
-
-
 
         int doneTaskCount = taskService.getDoneTaskCountForUser(username);
         model.addAttribute("doneTaskCount",doneTaskCount);
@@ -80,7 +76,6 @@ public class DashboardController {
         Task onTrackedTask = userService.getOnTrackTaskByUsername(username);
         model.addAttribute("onTrackedTask",onTrackedTask);
 
-
         List<Event> registeredEvents = eventService.getRegisteredEvents(authentication);
         model.addAttribute("registeredEvents", registeredEvents);
 
@@ -90,13 +85,16 @@ public class DashboardController {
         List<Task> tasks = taskService.getTasksByUserName(username);
         model.addAttribute("UserTasks", tasks);
 
+
         List<User> allUsers = userService.findAllUsers();
         model.addAttribute("allUsers",allUsers);
+
+        List<Event> allEvents = eventService.getAllEvents();
+        model.addAttribute("allEvents",allEvents);
     }
 
     @GetMapping("/board")
     public String getBoard() {return "board";}
-
 
     @GetMapping("/login")
     public String login() {

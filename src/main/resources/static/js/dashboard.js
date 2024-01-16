@@ -5,7 +5,6 @@ function selectNavItem(element) {
         link.classList.remove('active');
     });
 
-
     element.classList.add('active');
 }
 function selectNavItemWId(element, itemId) {
@@ -48,17 +47,16 @@ function openTaskDetails(button) {
     });
     button.classList.add('selected-task');
 
-
     var taskId = button.dataset.taskId;
     var taskName = button.dataset.taskName;
     var taskStatus = button.dataset.taskStatus;
     var taskDeveloper = button.dataset.taskDeveloper;
     var taskAnalyst = button.dataset.taskAnalyst;
     var taskDueDate = button.dataset.taskDueDate;
-    var taskFinalSP = button.dataset.taskFinalSP;
+    var taskFinalSP = parseInt(button.dataset.taskFinalSP);
     var taskEvent = button.dataset.taskEvent;
-    var taskIsStarred = button.dataset.taskIsStarred;
-
+    let taskIsStarred;
+    taskIsStarred = button.dataset.taskIsStarred === "true";
 
     var task = {
         id: taskId,
@@ -71,7 +69,6 @@ function openTaskDetails(button) {
         event: taskEvent,
         isStarred: taskIsStarred
     };
-
 
     showTaskDetails(task);
 }
@@ -107,7 +104,7 @@ function showTaskDetails(task) {
         taskDueDateInput.value = task.dueDate;
     }
 
-    var taskFinalSPInput = document.getElementById("taskFinalSP");
+    var taskFinalSPInput = document.getElementById("taskFinalSp");
     if (taskFinalSPInput) {
         taskFinalSPInput.value = task.finalSP;
     }
@@ -119,10 +116,9 @@ function showTaskDetails(task) {
 
     var taskIsStarredInput = document.getElementById("taskIsStarred");
     if (taskIsStarredInput) {
-        taskIsStarredInput.value = task.isStarred;
+        taskIsStarredInput.checked = task.isStarred;
     }
 }
-
 
 function saveTaskDetails() {
     // Burada formdaki verileri alıp bir HTTP isteği yapabilir ve veriyi güncelleyebilirsiniz.
@@ -130,12 +126,13 @@ function saveTaskDetails() {
     var taskId = document.getElementById("taskId").value;
     var taskName = document.getElementById("taskName").value;
     var taskStatus = document.getElementById("taskStatus").value;
-    var taskDeveloper = document.getElementById("taskDeveloper");
-    var taskAnalyst = document.getElementById("taskAnalyst");
+    var taskDeveloper = document.getElementById("taskDeveloper").value;
+    var taskAnalyst = document.getElementById("taskAnalyst").value;
     var taskDueDate = document.getElementById("taskDueDate").value;
-    var taskFinalSP = document.getElementById("taskFinalSP").value;
+    var taskFinalSP = (document.getElementById("taskFinalSp").value);
     var taskEvent = document.getElementById("taskEvent").value;
-    var taskIsStarred = document.getElementById("taskIsStarred").value;
+    let taskIsStarred = document.getElementById("taskIsStarred").checked;
+    console.log(taskIsStarred);
 
 
     fetch('/tasks/'+taskId, {
@@ -145,7 +142,19 @@ function saveTaskDetails() {
         },
         body: JSON.stringify({
             name: taskName,
-            status: taskStatus
+            status: taskStatus,
+            developer:{
+                username: taskDeveloper
+            },
+            analyst:{
+                username: taskAnalyst
+            },
+            finalSP: taskFinalSP,
+            isStarred: taskIsStarred
+            // event:{
+            //     eventName:taskEvent
+            // }
+
             // ... Diğer verileri ekleyin ...
         }),
     })

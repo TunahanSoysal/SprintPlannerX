@@ -26,9 +26,7 @@ public class RegistrationController {
 
     @PostMapping
     public String registerUser(@RequestBody User user) throws Exception {
-
         userService.registerUser(user.getName(), user.getUsername(),user.getEmail(),user.getPassword());
-
         return "redirect:/login";
     }
 }

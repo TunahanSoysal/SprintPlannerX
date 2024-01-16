@@ -63,7 +63,6 @@ public class UserService {
         if (userRepository.findByUsername(username).isEmpty()) {
 
             User user = new User();
-
             user.setUsername(username);
             user.setName(name);
             user.setEmail(email);

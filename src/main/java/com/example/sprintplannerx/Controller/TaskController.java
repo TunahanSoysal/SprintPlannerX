@@ -3,6 +3,7 @@ package com.example.sprintplannerx.Controller;
 import com.example.sprintplannerx.Entities.Event;
 import com.example.sprintplannerx.Entities.Task;
 import com.example.sprintplannerx.Entities.User;
+import com.example.sprintplannerx.Service.EventService;
 import com.example.sprintplannerx.Service.TaskService;
 import com.example.sprintplannerx.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,9 @@ public class TaskController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private EventService eventService;
+
     @GetMapping()
     public String getTasks(@RequestParam(name = "status", required = false) String status, Model model) {
         List<Task> tasks;
@@ -37,6 +41,7 @@ public class TaskController {
         model.addAttribute("tasks", tasks);
         return "tasks";
     }
+
     @GetMapping("userTasks")
     public String listTasksUser(Model model, Principal principal) {
         String username = principal.getName();
@@ -45,6 +50,8 @@ public class TaskController {
         model.addAttribute("user",username);
         List<User> allUsers = userService.findAllUsers();
         model.addAttribute("allUsers",allUsers);
+        List<Event> allEvents = eventService.getAllEvents();
+        model.addAttribute("allEvents",allEvents);
         return "tasks";
     }
 
@@ -57,9 +64,25 @@ public class TaskController {
         model.addAttribute("user",user);
         List<User> allUsers = userService.findAllUsers();
         model.addAttribute("allUsers",allUsers);
+        List<Event> allEvents = eventService.getAllEvents();
+        model.addAttribute("allEvents",allEvents);
         return "tasks";
     }
 
+    @GetMapping("userFavorites")
+    public String listTasksUserFavorites(Model model, Principal principal){
+        String username = principal.getName();
+        User user = userService.getUserByUsername(username);
+        List<Task> favoriteTasks = taskService.getStarredTasks(username);
+        model.addAttribute("favoriteTasks",favoriteTasks);
+        model.addAttribute("user",user);
+        List<User> allUsers = userService.findAllUsers();
+        model.addAttribute("allUsers",allUsers);
+        List<Event> allEvents = eventService.getAllEvents();
+        model.addAttribute("allEvents",allEvents);
+
+        return "tasks";
+    }
 
     @GetMapping("/{id}")
     public Task getTaskById(@PathVariable Long id) {
