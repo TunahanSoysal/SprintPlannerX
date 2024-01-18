@@ -70,12 +70,16 @@ public class TaskService {
             return  null;
         }
     }
-    public void updateTaskStatus(Long taskId, String newStatus){
+    public Task updateTaskStatus(Long taskId, String newStatus){
         Optional<Task> task = taskRepository.findById(taskId);
         if (task.isPresent()){
             Task foundTask = task.get();
             foundTask.setStatus(newStatus);
             taskRepository.save(foundTask);
+            return  foundTask;
+        }
+        else {
+            return null;
         }
     }
 

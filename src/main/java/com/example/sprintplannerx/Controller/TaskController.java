@@ -111,11 +111,10 @@ public class TaskController {
     }
 
     @PutMapping("/updateTaskStatus/{taskId}")
-    public ResponseEntity<String> updateTaskStatus(@PathVariable String taskId, @RequestBody String newStatus) {
+    public Task updateTaskStatus(@PathVariable String taskId, @RequestBody String newStatus) {
         Long newID = Long.parseLong(taskId);
-        taskService.updateTaskStatus(newID, newStatus);
 
-        return ResponseEntity.ok("Task status updated successfully.");
+        return taskService.updateTaskStatus(newID, newStatus);
     }
 
     @DeleteMapping("/{id}")
