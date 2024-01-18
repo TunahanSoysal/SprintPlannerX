@@ -31,7 +31,7 @@ public class Task {
 
     private Integer finalSP;
 
-    @JsonIgnore
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "event_id")
     private Event Event;
@@ -39,6 +39,7 @@ public class Task {
 
 
     private boolean isStarred;
+
     public void setIsStarred(boolean starred) {
         isStarred = starred;
     }

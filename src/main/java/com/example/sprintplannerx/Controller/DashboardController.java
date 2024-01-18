@@ -85,7 +85,6 @@ public class DashboardController {
         List<Task> tasks = taskService.getTasksByUserName(username);
         model.addAttribute("UserTasks", tasks);
 
-
         List<User> allUsers = userService.findAllUsers();
         model.addAttribute("allUsers",allUsers);
 

@@ -62,7 +62,7 @@ public class TaskService {
             foundTask.setAnalyst(userRepository.findByUsername(newTask.getAnalyst().getUsername()).orElse(null));
             foundTask.setFinalSP(newTask.getFinalSP());
             foundTask.setIsStarred(newTask.isStarred());
-            //foundTask.setEvent(eventRepository.findByEventName(newTask.getEvent().getEventName()));
+            foundTask.setEvent(eventRepository.findEventByEventName(newTask.getEvent().getEventName()));
             taskRepository.save(foundTask);
             return foundTask;
         }else{

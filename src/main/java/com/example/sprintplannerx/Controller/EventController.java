@@ -2,17 +2,28 @@ package com.example.sprintplannerx.Controller;
 
 import com.example.sprintplannerx.Entities.Event;
 import com.example.sprintplannerx.Service.EventService;
+import com.example.sprintplannerx.Service.TaskService;
+import com.example.sprintplannerx.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.sql.Date;
 import java.util.List;
 
-@RestController
+@Controller
 @RequestMapping("/events")
 public class EventController {
     @Autowired
     private EventService eventService;
+
+//    @Autowired
+//    private UserService userService;
+//
+//    @Autowired
+//    private TaskService taskService;
 
     @GetMapping
     public List<Event> getAllEvents() {
@@ -20,8 +31,12 @@ public class EventController {
     }
 
     @GetMapping("/{id}")
-    public Event getEventById(@PathVariable Long id) {
-        return eventService.getEventById(id);
+    public String getEventById(@PathVariable Long id, Model model, Principal principal) {
+        String username = principal.getName();
+        Event event = eventService.getEventById(id);
+        model.addAttribute("user",username);
+        model.addAttribute("event",event);
+        return "eventView";
     }
 
     @PostMapping

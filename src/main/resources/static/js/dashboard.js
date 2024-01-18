@@ -7,6 +7,11 @@ function selectNavItem(element) {
 
     element.classList.add('active');
 }
+
+function goBack() {
+    window.history.back();
+}
+
 function selectNavItemWId(element, itemId) {
     var navLinks = document.querySelectorAll('#sidebar .nav-link');
 
@@ -150,10 +155,10 @@ function saveTaskDetails() {
                 username: taskAnalyst
             },
             finalSP: taskFinalSP,
-            isStarred: taskIsStarred
-            // event:{
-            //     eventName:taskEvent
-            // }
+            isStarred: taskIsStarred,
+            event:{
+                eventName:taskEvent
+            }
 
             // ... Diğer verileri ekleyin ...
         }),

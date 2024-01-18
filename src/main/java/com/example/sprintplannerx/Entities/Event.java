@@ -22,7 +22,7 @@ public class Event {
 
     private Date endDate;
 
-    @JsonIgnore
+
     @OneToMany
     private List<Task> tasks = new ArrayList<>();
 

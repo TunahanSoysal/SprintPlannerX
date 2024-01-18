@@ -81,3 +81,23 @@
 #taskItem:hover{
     background-color: rgb(206, 206, 206);
 }
+
+.back-button {
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 18px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+/* Ok simgesi */
+.back-arrow {
+    display: inline-block;
+    margin-right: 5px;
+}

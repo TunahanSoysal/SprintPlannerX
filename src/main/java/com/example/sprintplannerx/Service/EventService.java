@@ -1,19 +1,33 @@
 package com.example.sprintplannerx.Service;
 
 import com.example.sprintplannerx.Entities.Event;
+import com.example.sprintplannerx.Entities.Task;
 import com.example.sprintplannerx.Repository.EventRepository;
+import com.example.sprintplannerx.Repository.TaskRepository;
+import com.example.sprintplannerx.Repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
 public class EventService {
 
-    private final EventRepository eventRepository;
+    @Autowired
+    private TaskRepository taskRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private EventRepository eventRepository;
+
+    @Autowired
+    private TaskService taskService;
 
     public EventService(EventRepository eventRepository) {
         this.eventRepository = eventRepository;
@@ -45,8 +59,21 @@ public class EventService {
 
         List<Event> allEvents = eventRepository.findAll();
         return allEvents.stream()
-                .filter(event -> event.getUsers().stream().anyMatch(user -> user.getUsername().equals(username)))
+                .filter(event -> event
+                        .getTasks()
+                        .stream()
+                        .anyMatch(task -> task
+                                .getDeveloper()
+                                .getUsername()
+                                .equals(username)
+                                ||task
+                                .getAnalyst()
+                                .getUsername()
+                                .equals(username)
+                        )
+                )
                 .collect(Collectors.toList());
     }
+
 
 }

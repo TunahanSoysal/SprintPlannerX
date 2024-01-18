@@ -5,6 +5,9 @@ function allowDrop(event) {
     var targetList = event.target.tagName === "UL" ? event.target : event.target.parentElement;
     targetList.classList.add("drag-over");
 }
+function goBack() {
+    window.history.back();
+}
 
 function drag(event) {
     draggedTask = event.target;

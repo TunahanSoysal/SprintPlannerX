@@ -23,6 +23,9 @@
         </script>
     </head>
     <body>
+        <button class="back-button" onclick="loadContent('dashboard2',this)">
+            <span class="back-arrow">&#8592;</span> Back
+        </button>
         <div class="container mt-5">
             <div class="row">
                 <!-- Sol Tarafta Görev Listesi -->
@@ -100,7 +103,7 @@
                                         </select>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="taskIsStarred" class="form-label">Is Starred</label>
+                                        <label for="taskIsStarred" class="form-label">Favorite</label>
                                         <input type="checkbox" class="form-check-label" id="taskIsStarred" value="">
                                     </div>
                                     <button type="button" class="btn btn-primary" onclick="saveTaskDetails()">Save</button>
