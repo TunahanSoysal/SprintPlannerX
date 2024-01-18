@@ -37,7 +37,6 @@ public class Task {
     private Event Event;
 
 
-
     private boolean isStarred;
 
     public void setIsStarred(boolean starred) {

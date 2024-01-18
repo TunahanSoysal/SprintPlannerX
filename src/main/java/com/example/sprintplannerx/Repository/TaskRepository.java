@@ -7,6 +7,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Repository
@@ -33,6 +34,9 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
     List<Task> findAllOrderByDueDate(@Param("username") String username);
 
     Task getTaskByID(Long taskId);
+
+    @Query("SELECT t FROM Task t WHERE (t.Name = :taskName)")
+    Optional<Task> getTaskByName(String taskName);
 
     @Query("SELECT t FROM Task t WHERE (t.Developer.username = :username OR t.Analyst.username = :username)")
     List<Task> findTaskByUserName(@Param("username") String username);

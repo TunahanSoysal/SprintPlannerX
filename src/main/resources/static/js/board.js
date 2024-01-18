@@ -5,20 +5,16 @@ function allowDrop(event) {
     var targetList = event.target.tagName === "UL" ? event.target : event.target.parentElement;
     targetList.classList.add("drag-over");
 }
-function goBack() {
-    window.history.back();
-}
 
 function drag(event) {
     draggedTask = event.target;
-    event.dataTransfer.setData("text", event.target.innerText);
+    event.dataTransfer.setData("text", event.target.dataset.taskId); // Task'ın id'sini veri olarak taşı
     event.target.classList.add("dragging");
 }
 
 function drop(event, targetListId) {
     event.preventDefault();
-    var data = event.dataTransfer.getData("text");
-
+    var taskId = event.dataTransfer.getData("text"); // Task'ın id'sini al
     var targetList = document.getElementById(targetListId);
 
     if (event.target.tagName === "LI" && event.target.parentElement.id === targetListId) {
@@ -26,7 +22,7 @@ function drop(event, targetListId) {
         return;
     }
 
-    if (isDuplicateTask(targetList, data)) {
+    if (isDuplicateTask(targetList, taskId)) {
         resetDraggingStyles();
         return;
     }
@@ -35,24 +31,51 @@ function drop(event, targetListId) {
     taskElement.className = "task";
     taskElement.draggable = true;
     taskElement.addEventListener("dragstart", drag);
-    taskElement.appendChild(document.createTextNode(data));
+    taskElement.appendChild(document.createTextNode(draggedTask.innerText));
+    taskElement.dataset.taskId = taskId; // Yeni task'ın id'sini ata
 
     targetList.classList.remove("drag-over");
     targetList.appendChild(taskElement);
 
     // Silme işlemi
-    if (targetListId === "done-list" || targetListId === "todo-list") {
-        var otherListId = targetListId === "done-list" ? "todo-list" : "done-list";
-        var otherList = document.getElementById(otherListId);
-        var otherTasks = otherList.getElementsByClassName("task");
-        for (var i = 0; i < otherTasks.length; i++) {
-            if (otherTasks[i].innerText === data) {
-                otherList.removeChild(otherTasks[i]);
-                break;
+    if (targetListId === "done" || targetListId === "todo" || targetListId === "overdue") {
+        var otherListIds = ["todo", "done", "overdue"].filter(id => id !== targetListId);
+
+        otherListIds.forEach(otherListId => {
+            var otherList = document.getElementById(otherListId);
+            var otherTasks = otherList.getElementsByClassName("task");
+            for (var i = 0; i < otherTasks.length; i++) {
+                if (otherTasks[i].dataset.taskId === taskId) {
+                    otherList.removeChild(otherTasks[i]);
+                    break;
+                }
             }
-        }
+        });
+
+
+        updateTaskStatus(taskId, targetListId);
     }
+
     resetDraggingStyles();
+}
+
+function updateTaskStatus(taskId, newStatus) {
+    fetch('/updateTaskStatus/'+taskId, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            newStatus: newStatus
+        })
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Success:', data);
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
 }
 
 document.addEventListener("dragleave", function (event) {
@@ -65,10 +88,10 @@ function resetDraggingStyles() {
     draggedTask = null;
 }
 
-function isDuplicateTask(list, taskName) {
+function isDuplicateTask(list, taskId) {
     var tasks = list.getElementsByClassName("task");
     for (var i = 0; i < tasks.length; i++) {
-        if (tasks[i].innerText === taskName) {
+        if (tasks[i].dataset.taskId === taskId) {
             return true;
         }
     }

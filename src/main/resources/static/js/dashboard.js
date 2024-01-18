@@ -133,10 +133,12 @@ function saveTaskDetails() {
     var taskStatus = document.getElementById("taskStatus").value;
     var taskDeveloper = document.getElementById("taskDeveloper").value;
     var taskAnalyst = document.getElementById("taskAnalyst").value;
-    var taskDueDate = document.getElementById("taskDueDate").value;
+    var taskDueDate = Date.parse(document.getElementById("taskDueDate").value);
     var taskFinalSP = (document.getElementById("taskFinalSp").value);
     var taskEvent = document.getElementById("taskEvent").value;
     let taskIsStarred = document.getElementById("taskIsStarred").checked;
+
+
     console.log(taskIsStarred);
 
 
@@ -154,11 +156,13 @@ function saveTaskDetails() {
             analyst:{
                 username: taskAnalyst
             },
+            dueDate: taskDueDate,
             finalSP: taskFinalSP,
             isStarred: taskIsStarred,
             event:{
                 eventName:taskEvent
             }
+
 
             // ... Diğer verileri ekleyin ...
         }),

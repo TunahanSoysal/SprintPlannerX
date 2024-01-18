@@ -63,10 +63,19 @@ public class TaskService {
             foundTask.setFinalSP(newTask.getFinalSP());
             foundTask.setIsStarred(newTask.isStarred());
             foundTask.setEvent(eventRepository.findEventByEventName(newTask.getEvent().getEventName()));
+            foundTask.setDueDate(newTask.getDueDate());
             taskRepository.save(foundTask);
             return foundTask;
         }else{
             return  null;
+        }
+    }
+    public void updateTaskStatus(Long taskId, String newStatus){
+        Optional<Task> task = taskRepository.findById(taskId);
+        if (task.isPresent()){
+            Task foundTask = task.get();
+            foundTask.setStatus(newStatus);
+            taskRepository.save(foundTask);
         }
     }
 
@@ -78,7 +87,6 @@ public class TaskService {
 
         List<Task> allTasks = taskRepository.findAll();
         return allTasks.stream()
-                .filter(Task::isStarred)
                 .filter(task -> task.getDeveloper().getUsername().equals(username) || task.getAnalyst().getUsername().equals(username))
                 .collect(Collectors.toList());
     }

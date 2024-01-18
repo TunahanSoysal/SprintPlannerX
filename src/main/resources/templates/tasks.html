@@ -23,13 +23,14 @@
         </script>
     </head>
     <body>
-        <button class="back-button" onclick="loadContent('dashboard2',this)">
-            <span class="back-arrow">&#8592;</span> Back
-        </button>
+
         <div class="container mt-5">
             <div class="row">
                 <!-- Sol Tarafta Görev Listesi -->
                 <div class="col-md-4">
+                    <button class="back-button" onclick="loadContent('dashboard2',this)">
+                        <span class="back-arrow">&#8592;</span> Back
+                    </button>
                     <h4>Task List</h4>
                     <ul class="list-group">
                         <li id="taskItem" th:each="task : ${tasks}"
@@ -44,8 +45,10 @@
                             th:data-task-final-sp="${task.finalSP}"
                             th:data-task-event="${task.event.eventName}"
                             th:data-task-is-starred="${task.starred}">
+
+                            <span th:text="${task.ID + ':'}"></span>
                             <span th:text="${task.name}"></span>
-                            <span th:text="${task.ID}"></span>
+
                             <span class="badge bg-dark" th:if="${task.developer.onTrackedTask == task && task.developer.name == user}">On Track Dev</span>
                             <span class="badge bg-dark" th:if="${task.analyst.onTrackedTask == task && task.analyst.name == user}">On Track Analyst</span>
                             <span class="badge bg-dark" th:if="${task.developer.onTrackedTask != task && task.developer.name == user}">Dev</span>
@@ -71,7 +74,12 @@
                                     </div>
                                     <div class="mb-3">
                                         <label for="taskStatus" class="form-label">Status</label>
-                                        <input type="text" class="form-control" id="taskStatus" value="" >
+<!--                                        <input type="text" class="form-control" id="taskStatus" value="" >-->
+                                        <select class="form-select" id="taskStatus">
+                                            <option value="todo">Todo</option>
+                                            <option value="done">Done</option>
+                                            <option value="overdue">Overdue</option>
+                                        </select>
                                     </div>
                                     <div class="mb-3">
                                         <label for="taskDeveloper" class="form-label">Developer</label>

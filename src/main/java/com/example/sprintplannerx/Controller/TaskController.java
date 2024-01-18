@@ -7,6 +7,7 @@ import com.example.sprintplannerx.Service.EventService;
 import com.example.sprintplannerx.Service.TaskService;
 import com.example.sprintplannerx.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -73,8 +74,8 @@ public class TaskController {
     public String listTasksUserFavorites(Model model, Principal principal){
         String username = principal.getName();
         User user = userService.getUserByUsername(username);
-        List<Task> favoriteTasks = taskService.getStarredTasks(username);
-        model.addAttribute("favoriteTasks",favoriteTasks);
+        List<Task> starredTasks = taskService.getStarredTasks(username);
+        model.addAttribute("starredTasks",starredTasks);
         model.addAttribute("user",user);
         List<User> allUsers = userService.findAllUsers();
         model.addAttribute("allUsers",allUsers);
@@ -107,6 +108,14 @@ public class TaskController {
     public Task updateOneTask(@PathVariable Long taskId,
                               @RequestBody Task newTask){
         return taskService.updateOneTask(taskId,newTask);
+    }
+
+    @PutMapping("/updateTaskStatus/{taskId}")
+    public ResponseEntity<String> updateTaskStatus(@PathVariable String taskId, @RequestBody String newStatus) {
+        Long newID = Long.parseLong(taskId);
+        taskService.updateTaskStatus(newID, newStatus);
+
+        return ResponseEntity.ok("Task status updated successfully.");
     }
 
     @DeleteMapping("/{id}")

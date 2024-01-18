@@ -93,7 +93,12 @@ public class DashboardController {
     }
 
     @GetMapping("/board")
-    public String getBoard() {return "board";}
+    public String getBoard(Model model) {
+        Authentication authentication = securityService.getAuthentication();
+        model.addAttribute("authentication", authentication);
+        importModels(model, authentication);
+        return "board";
+    }
 
     @GetMapping("/login")
     public String login() {
