@@ -35,6 +35,9 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
 
     Task getTaskByID(Long taskId);
 
+    @Query("SELECT t FROM Task t WHERE (t.Developer.username = :username OR t.Analyst.username = :username) AND t.isStarred = true")
+    List<Task> getStarredTasksByUsername(@Param("username") String username);
+
     @Query("SELECT t FROM Task t WHERE (t.Name = :taskName)")
     Optional<Task> getTaskByName(String taskName);
 

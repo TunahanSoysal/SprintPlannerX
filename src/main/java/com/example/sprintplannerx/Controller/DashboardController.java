@@ -2,6 +2,7 @@ package com.example.sprintplannerx.Controller;
 
 
 import com.example.sprintplannerx.Entities.Event;
+import com.example.sprintplannerx.Entities.Role;
 import com.example.sprintplannerx.Entities.Task;
 import com.example.sprintplannerx.Entities.User;
 import com.example.sprintplannerx.Service.EventService;
@@ -9,13 +10,16 @@ import com.example.sprintplannerx.Service.SecurityService;
 import com.example.sprintplannerx.Service.TaskService;
 import com.example.sprintplannerx.Service.UserService;
 import org.springframework.security.core.Authentication;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.security.Principal;
+
 import java.util.List;
+import java.util.Set;
 
 @Controller
 @RequestMapping()
@@ -47,7 +51,6 @@ public class DashboardController {
         Authentication authentication = securityService.getAuthentication();
         model.addAttribute("authentication", authentication);
         importModels(model, authentication);
-
         return "dashboard2";
     }
 
@@ -90,6 +93,13 @@ public class DashboardController {
 
         List<Event> allEvents = eventService.getAllEvents();
         model.addAttribute("allEvents",allEvents);
+
+        User currentUser = userService.getUserByUsername(username);
+        model.addAttribute("currentUser",currentUser);
+
+        Set<Role>userRoles = currentUser.getRoles();
+        model.addAttribute("userRoles",userRoles);
+
     }
 
     @GetMapping("/board")
@@ -98,6 +108,17 @@ public class DashboardController {
         model.addAttribute("authentication", authentication);
         importModels(model, authentication);
         return "board";
+    }
+
+    @GetMapping("/profile")
+    public String getProfile(Model model, Principal principal){
+        String username = principal.getName();
+        User currentUser = userService.getUserByUsername(username);
+        model.addAttribute("currentUser",currentUser);
+        List<Task> tasks = taskService.getTasksByUserName(username);
+        model.addAttribute("UserTasks", tasks);
+
+        return "profile";
     }
 
     @GetMapping("/login")

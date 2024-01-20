@@ -101,3 +101,22 @@
     display: inline-block;
     margin-right: 5px;
 }
+#heartLabel {
+    color: gray;
+    font-size: 1.5em;
+    cursor: pointer;
+}
+
+#taskIsStarred:checked + #heartLabel {
+    color: red;
+}
+#taskIsStarred{
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}

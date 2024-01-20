@@ -54,6 +54,28 @@ public class UserService {
             return  null;
         }
     }
+    public User updateUserName(Integer userId, String username){
+        Optional<User> user = userRepository.findById(userId);
+        if (user.isPresent()){
+            User foundUser = user.get();
+            foundUser.setUsername(username);
+            userRepository.save(foundUser);
+            return foundUser;
+        }else{
+            return  null;
+        }
+    }
+    public User updateEmail(Integer userId, String email){
+        Optional<User> user = userRepository.findById(userId);
+        if (user.isPresent()){
+            User foundUser = user.get();
+            foundUser.setEmail(email);
+            userRepository.save(foundUser);
+            return foundUser;
+        }else{
+            return  null;
+        }
+    }
 
     public void deleteUserById(Integer userId) {
         userRepository.deleteById(userId);

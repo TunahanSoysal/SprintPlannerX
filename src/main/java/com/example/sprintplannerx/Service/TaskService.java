@@ -89,10 +89,9 @@ public class TaskService {
 
     public List<Task> getStarredTasks(String username) {
 
-        List<Task> allTasks = taskRepository.findAll();
-        return allTasks.stream()
-                .filter(task -> task.getDeveloper().getUsername().equals(username) || task.getAnalyst().getUsername().equals(username))
-                .collect(Collectors.toList());
+        return taskRepository.getStarredTasksByUsername(username);
+
+
     }
 
     public List<Task> getTasksByUserName(String username) {
