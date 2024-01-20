@@ -185,3 +185,21 @@ function saveTaskDetails() {
 
 function createTask(taskName) {
 }
+function updateTaskStatus(taskId, newStatus) {
+    fetch('/updateTaskStatus/'+taskId, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            newStatus: newStatus
+        })
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Success:', data);
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+}

@@ -50,7 +50,7 @@
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title">Upcoming Tasks</h5>
-                <p class="card-text">Due time'a göre en az vakit kalandan en yeniye doğru.</p>
+                <p class="card-text">Earliest Deadline First</p>
                 <ul>
                     <li th:each="task : ${upcomingTasks}">
                         <span th:text="${task.name}"></span> - <span th:text="${task.dueDate}"></span>

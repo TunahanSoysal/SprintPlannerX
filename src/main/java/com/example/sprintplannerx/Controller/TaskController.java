@@ -9,6 +9,8 @@ import com.example.sprintplannerx.Service.TaskService;
 import com.example.sprintplannerx.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Controller;
@@ -142,10 +144,16 @@ public class TaskController {
     }
 
     @PutMapping("/updateTaskStatus/{taskId}")
-    public Task updateTaskStatus(@PathVariable String taskId, @RequestBody String newStatus) {
-        Long newID = Long.parseLong(taskId);
+    public ResponseEntity<String> updateTaskStatus(@PathVariable Integer taskId, @RequestBody String newStatus) {
+        Long newID = taskId.longValue();
 
-        return taskService.updateTaskStatus(newID, newStatus);
+        Task updatedTask = taskService.updateTaskStatus(newID, newStatus);
+
+        if (updatedTask != null) {
+            return ResponseEntity.ok("Task updated successfully");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Task not found");
+        }
     }
 
     @DeleteMapping("/{id}")

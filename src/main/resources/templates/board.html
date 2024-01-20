@@ -20,12 +20,12 @@
 </head>
 
 <div class="container mt-5">
-    <h1 class="text-center">Drag and Drop ToDo</h1>
+    <h1 class="text-center">Task Board</h1>
     <div class="row mt-4">
         <div class="col-md-4">
             <h2>To Do</h2>
             <ul id="todo" class="task-list" ondrop="drop(event, 'todo')" ondragover="allowDrop(event)">
-                <li th:each="task :${UserTasks}" th:if="${task.status == 'todo'}" class="task" draggable="true" ondragstart="drag(event)" th:data-taskId="${task.ID}">
+                <li th:each="task :${UserTasks}" th:if="${task.status == 'todo'}" class="task" draggable="true" ondragstart="drag(event)" th:data-task-id="${task.ID}">
                     <span th:text="${task.name}"></span>
                 </li>
             </ul>
@@ -33,7 +33,7 @@
         <div class="col-md-4">
             <h2>Done</h2>
             <ul id="done" class="task-list" ondrop="drop(event, 'done')" ondragover="allowDrop(event)">
-                <li th:each="task :${UserTasks}" th:if="${task.status == 'done'}" class="task" draggable="true" ondragstart="drag(event)" th:data-taskId="${task.ID}">
+                <li th:each="task :${UserTasks}" th:if="${task.status == 'done'}" class="task" draggable="true" ondragstart="drag(event)" th:data-task-id="${task.ID}">
                     <span th:text="${task.name}"></span>
                 </li>
             </ul>
@@ -41,7 +41,7 @@
         <div class="col-md-4">
             <h2>Overdue</h2>
             <ul id="overdue" class="task-list" ondrop="drop(event, 'overdue')" ondragover="allowDrop(event)">
-                <li th:each="task :${UserTasks}" th:if="${task.status == 'overdue'}" class="task" draggable="true" ondragstart="drag(event)" th:data-taskId="${task.ID}">
+                <li th:each="task :${UserTasks}" th:if="${task.status == 'overdue'}" class="task" draggable="true" ondragstart="drag(event)" th:data-task-id="${task.ID}">
                     <span th:text="${task.name}"></span>
                 </li>
             </ul>

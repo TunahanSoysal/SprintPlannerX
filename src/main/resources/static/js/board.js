@@ -8,13 +8,13 @@ function allowDrop(event) {
 
 function drag(event) {
     draggedTask = event.target;
-    event.dataTransfer.setData("text", event.target.dataset.taskId); // Task'ın id'sini veri olarak taşı
+    event.dataTransfer.setData("number", event.target.dataset.taskId); // Task'ın id'sini veri olarak taşı
     event.target.classList.add("dragging");
 }
 
 function drop(event, targetListId) {
     event.preventDefault();
-    var taskId = event.dataTransfer.getData("text"); // Task'ın id'sini al
+    var taskId = event.dataTransfer.getData("number"); // Task'ın id'sini al
     var targetList = document.getElementById(targetListId);
 
     if (event.target.tagName === "LI" && event.target.parentElement.id === targetListId) {
@@ -53,21 +53,20 @@ function drop(event, targetListId) {
         });
 
 
-        updateTaskStatus(taskId, targetListId);
+
     }
+    updateTaskStatus(taskId, targetListId);
 
     resetDraggingStyles();
 }
 
 function updateTaskStatus(taskId, newStatus) {
-    fetch('/updateTaskStatus/'+taskId, {
+    fetch('tasks/updateTaskStatus/'+taskId, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
-            newStatus: newStatus
-        })
+        body: newStatus
     })
         .then(response => response.json())
         .then(data => {
