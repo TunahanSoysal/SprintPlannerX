@@ -16,10 +16,6 @@
 #sidebar .nav-link {
     color: lightgray;
 }
-/*#sidebar .navbar-brand {*/
-/*    color: #ffcc1d;
-/*    font-size: x-large;*/
-/*}*/
 
 #sidebar .nav-link.active {
     color: white;
@@ -96,7 +92,7 @@
     border-radius: 4px;
 }
 
-/* Ok simgesi */
+
 .back-arrow {
     display: inline-block;
     margin-right: 5px;

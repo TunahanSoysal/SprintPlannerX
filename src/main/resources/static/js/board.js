@@ -32,7 +32,7 @@ function drop(event, targetListId) {
     taskElement.draggable = true;
     taskElement.addEventListener("dragstart", drag);
     taskElement.appendChild(document.createTextNode(draggedTask.innerText));
-    taskElement.dataset.taskId = taskId; // Yeni task'ın id'sini ata
+    taskElement.dataset.taskId = taskId;
 
     targetList.classList.remove("drag-over");
     targetList.appendChild(taskElement);

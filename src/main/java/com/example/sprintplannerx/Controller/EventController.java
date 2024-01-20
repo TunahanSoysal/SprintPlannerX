@@ -2,8 +2,6 @@ package com.example.sprintplannerx.Controller;
 
 import com.example.sprintplannerx.Entities.Event;
 import com.example.sprintplannerx.Service.EventService;
-import com.example.sprintplannerx.Service.TaskService;
-import com.example.sprintplannerx.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,12 +16,6 @@ import java.util.List;
 public class EventController {
     @Autowired
     private EventService eventService;
-
-//    @Autowired
-//    private UserService userService;
-//
-//    @Autowired
-//    private TaskService taskService;
 
     @GetMapping
     public List<Event> getAllEvents() {

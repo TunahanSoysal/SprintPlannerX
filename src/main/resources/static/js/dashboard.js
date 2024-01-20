@@ -12,16 +12,6 @@ function goBack() {
     window.history.back();
 }
 
-// function selectNavItemWId(element, itemId) {
-//     var navLinks = document.querySelectorAll('#sidebar .nav-link');
-//
-//     navLinks.forEach(function (link) {
-//         link.classList.remove('active');
-//     });
-//
-//     element.classList.add('active');
-// }
-
 document.addEventListener("DOMContentLoaded", function () {
     const defaultLinkId = "dashboard";
     const defaultLink = document.getElementById(defaultLinkId);
@@ -126,8 +116,6 @@ function showTaskDetails(task) {
 }
 
 function saveTaskDetails() {
-    // Burada formdaki verileri alıp bir HTTP isteği yapabilir ve veriyi güncelleyebilirsiniz.
-    // Örnek olarak bir fetch kullanalım:
     var taskId = document.getElementById("taskId").value;
     var taskName = document.getElementById("taskName").value;
     var taskStatus = document.getElementById("taskStatus").value;
@@ -160,9 +148,6 @@ function saveTaskDetails() {
             event:{
                 eventName:taskEvent
             }
-
-
-            // ... Diğer verileri ekleyin ...
         }),
     })
         .then(response => response.json())
@@ -199,6 +184,4 @@ function saveTaskDetails() {
 // });
 
 function createTask(taskName) {
-    // Burada task oluşturma işlemini yapabilirsiniz
-    // Örneğin, bir API'ye POST isteği göndererek
 }

@@ -1,10 +1,7 @@
 package com.example.sprintplannerx.Service;
 
 import com.example.sprintplannerx.Entities.Event;
-import com.example.sprintplannerx.Entities.Task;
 import com.example.sprintplannerx.Repository.EventRepository;
-import com.example.sprintplannerx.Repository.TaskRepository;
-import com.example.sprintplannerx.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,16 +15,7 @@ import java.util.stream.Collectors;
 public class EventService {
 
     @Autowired
-    private TaskRepository taskRepository;
-
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
     private EventRepository eventRepository;
-
-    @Autowired
-    private TaskService taskService;
 
     public EventService(EventRepository eventRepository) {
         this.eventRepository = eventRepository;
