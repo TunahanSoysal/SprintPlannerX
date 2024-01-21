@@ -237,7 +237,6 @@ function createProject() {
 function trackTask(button) {
     var taskId = document.getElementById("taskId").value;
     var userId = button.dataset.userId;
-    //var userId = document.getElementById("userId").value;
     fetch('/user/updateTracked/' + userId, {
         method: 'PUT',
         headers: {
