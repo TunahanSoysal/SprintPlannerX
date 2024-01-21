@@ -110,19 +110,6 @@ public class UserService {
         }
     }
 
-//    public void addRoleToUser(String username, String roleName) {
-//        User user = userRepository.findByUsername(username)
-//                .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
-//
-//        Role role = roleRepository.findByName(roleName)
-//                .orElseThrow(() -> new RuntimeException("Role not found with name: " + roleName));
-//
-//        if (!user.getRoles().contains(role)) {
-//            user.getRoles().add(role);
-//            userRepository.save(user);
-//        }
-//    }
-
     public Task getOnTrackTaskByUsername(String username) {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
