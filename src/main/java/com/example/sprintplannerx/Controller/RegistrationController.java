@@ -18,15 +18,16 @@ public class RegistrationController {
     public RegistrationController(UserService userService) {
         this.userService = userService;
     }
+
     @GetMapping
     public String register(Model model) {
-        model.addAttribute("user",new User());
+        model.addAttribute("user", new User());
         return "register";
     }
 
     @PostMapping
     public String registerUser(@RequestBody User user) throws Exception {
-        userService.registerUser(user.getName(), user.getUsername(),user.getEmail(),user.getPassword());
+        userService.registerUser(user.getName(), user.getUsername(), user.getEmail(), user.getPassword());
         return "redirect:/login";
     }
 }

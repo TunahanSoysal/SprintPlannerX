@@ -20,7 +20,7 @@ public class EventService {
         this.eventRepository = eventRepository;
     }
 
-    public List<Event> getAllEvents(){
+    public List<Event> getAllEvents() {
         return eventRepository.findAll();
     }
 
@@ -45,7 +45,7 @@ public class EventService {
 
     public List<Event> getRegisteredEvents(String username) {
         return eventRepository.getRegisteredByUsername(username);
-}
+    }
 
 
 }

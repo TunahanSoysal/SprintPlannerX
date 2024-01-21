@@ -1,6 +1,7 @@
 #secondary_navbar .active {
     text-decoration: underline;
 }
+
 #sidebar {
     height: 100vh;
     position: sticky;
@@ -13,6 +14,7 @@
     text-overflow: ellipsis;
 
 }
+
 #sidebar .nav-link {
     color: lightgray;
 }
@@ -26,7 +28,8 @@
 #sidebar .nav-link:hover {
     color: white;
 }
-#sidebar .nav-item{
+
+#sidebar .nav-item {
     width: 200px;
 }
 
@@ -44,29 +47,36 @@
 #sidebarBottom .nav-link:hover {
     color: white;
 }
-#onTrackedTaskName{
+
+#onTrackedTaskName {
     text-decoration: underline;
 }
-.favoriteListItem{
+
+.favoriteListItem {
     color: #d1d3e2;
 }
-.favoriteListItem a:hover{
+
+.favoriteListItem a:hover {
     color: #932828;
 }
-#a:hover{
+
+#a:hover {
     color: #932828;
 }
-.card{
+
+.card {
     margin: 20px;
 }
-.card-text{
+
+.card-text {
     margin-top: 10px;
 }
-.card:hover{
-    box-shadow: 0 4px 10px
-    rgba(0,0,0,0.16), 0 4px 10px rgba(0,0,0,0.23);
+
+.card:hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.16), 0 4px 10px rgba(0, 0, 0, 0.23);
 }
-#logo{
+
+#logo {
     --bs-gutter-x: 1.5rem;
     margin-left: calc(var(--bs-gutter-x) * -.5);
 }
@@ -74,7 +84,8 @@
 .selected-task {
     background-color: rgba(206, 206, 206, 0.75);
 }
-#taskItem:hover{
+
+#taskItem:hover {
     background-color: rgb(206, 206, 206);
 }
 
@@ -97,6 +108,7 @@
     display: inline-block;
     margin-right: 5px;
 }
+
 #heartLabel {
     color: gray;
     font-size: 1.5em;
@@ -106,7 +118,8 @@
 #taskIsStarred:checked + #heartLabel {
     color: red;
 }
-#taskIsStarred{
+
+#taskIsStarred {
     position: absolute;
     width: 1px;
     height: 1px;

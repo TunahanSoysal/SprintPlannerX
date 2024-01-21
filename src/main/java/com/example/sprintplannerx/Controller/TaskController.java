@@ -8,7 +8,6 @@ import com.example.sprintplannerx.Service.EventService;
 import com.example.sprintplannerx.Service.TaskService;
 import com.example.sprintplannerx.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -57,7 +56,7 @@ public class TaskController {
     @GetMapping("userTasks")
     public String listTasksUser(Model model, Principal principal, Authentication authentication) {
         String username = principal.getName();
-        model.addAttribute("userName",username);
+        model.addAttribute("userName", username);
 
         List<Task> tasks = taskService.getTasksByUserName(username);
         model.addAttribute("tasks", tasks);
@@ -66,16 +65,16 @@ public class TaskController {
         model.addAttribute("allTasks", allTasks);
 
         List<User> allUsers = userService.findAllUsers();
-        model.addAttribute("allUsers",allUsers);
+        model.addAttribute("allUsers", allUsers);
 
         List<Event> allEvents = eventService.getAllEvents();
-        model.addAttribute("allEvents",allEvents);
+        model.addAttribute("allEvents", allEvents);
 
         User user = userService.getUserByUsername(username);
-        model.addAttribute("user",user);
+        model.addAttribute("user", user);
 
         Set<Role> userRoles = user.getRoles();
-        model.addAttribute("userRoles",userRoles);
+        model.addAttribute("userRoles", userRoles);
 
         if (authentication != null && authentication.getPrincipal() instanceof org.springframework.security.core.userdetails.User) {
             Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
@@ -88,19 +87,19 @@ public class TaskController {
     }
 
     @GetMapping("userTasksStatus")
-    public String listTasksUserByStatus(@RequestParam(name = "status", required = false) String status,Model model, Principal principal, Authentication authentication) {
+    public String listTasksUserByStatus(@RequestParam(name = "status", required = false) String status, Model model, Principal principal, Authentication authentication) {
         String username = principal.getName();
         User user = userService.getUserByUsername(username);
-        model.addAttribute("user",user);
+        model.addAttribute("user", user);
 
         List<Task> tasks = taskService.getUserTasksByStatus(username, status);
         model.addAttribute("tasks", tasks);
 
         List<User> allUsers = userService.findAllUsers();
-        model.addAttribute("allUsers",allUsers);
+        model.addAttribute("allUsers", allUsers);
 
         List<Event> allEvents = eventService.getAllEvents();
-        model.addAttribute("allEvents",allEvents);
+        model.addAttribute("allEvents", allEvents);
 
         if (authentication != null && authentication.getPrincipal() instanceof org.springframework.security.core.userdetails.User) {
             Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
@@ -111,16 +110,16 @@ public class TaskController {
     }
 
     @GetMapping("userFavorites")
-    public String listTasksUserFavorites(Model model, Principal principal, Authentication authentication){
+    public String listTasksUserFavorites(Model model, Principal principal, Authentication authentication) {
         String username = principal.getName();
         User user = userService.getUserByUsername(username);
         List<Task> starredTasks = taskService.getStarredTasks(username);
-        model.addAttribute("starredTasks",starredTasks);
-        model.addAttribute("user",user);
+        model.addAttribute("starredTasks", starredTasks);
+        model.addAttribute("user", user);
         List<User> allUsers = userService.findAllUsers();
-        model.addAttribute("allUsers",allUsers);
+        model.addAttribute("allUsers", allUsers);
         List<Event> allEvents = eventService.getAllEvents();
-        model.addAttribute("allEvents",allEvents);
+        model.addAttribute("allEvents", allEvents);
 
         if (authentication != null && authentication.getPrincipal() instanceof org.springframework.security.core.userdetails.User) {
             Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
@@ -142,11 +141,11 @@ public class TaskController {
         return taskService.createTask(newTask);
     }
 
-    @PutMapping(value ="/{taskId}", consumes = "application/json", produces = "application/json")
+    @PutMapping(value = "/{taskId}", consumes = "application/json", produces = "application/json")
     public ResponseEntity<String> updateOneTask(@PathVariable Long taskId,
-                              @RequestBody Task newTask){
+                                                @RequestBody Task newTask) {
 
-        Task updatedTask = taskService.updateOneTask(taskId,newTask);
+        Task updatedTask = taskService.updateOneTask(taskId, newTask);
         if (updatedTask != null) {
             return ResponseEntity.ok("Task updated successfully");
         } else {

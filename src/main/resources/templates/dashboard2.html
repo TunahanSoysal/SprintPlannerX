@@ -6,7 +6,8 @@
                 <h5 class="card-title">Uncompleted Tasks</h5>
                 <p class="card-text">
                     <span id="toDoTaskCount" th:text="${toDoTaskCount}" style="font-size: xx-large"></span>
-                    <a href="#" onclick="loadContent('tasks/userTasksStatus?status=todo',this)" class="stretched-link"></a>
+                    <a href="#" onclick="loadContent('tasks/userTasksStatus?status=todo',this)"
+                       class="stretched-link"></a>
                 </p>
             </div>
         </div>
@@ -17,18 +18,20 @@
                 <h5 class="card-title">Completed Tasks</h5>
                 <p class="card-text">
                     <span id="doneTaskCount" th:text="${doneTaskCount}" style="font-size: xx-large"></span>
-                    <a href="#" onclick="loadContent('tasks/userTasksStatus?status=done',this)" class="stretched-link"></a>
+                    <a href="#" onclick="loadContent('tasks/userTasksStatus?status=done',this)"
+                       class="stretched-link"></a>
                 </p>
             </div>
         </div>
     </div>
-    <div class="col-md-3 mb-4" >
+    <div class="col-md-3 mb-4">
         <div class="card h-100">
             <div class="card-body" style="text-align: center;">
                 <h5 class="card-title">Overdue Tasks</h5>
                 <p class="card-text">
                     <span id="overdueTaskCount" th:text="${overdueTaskCount}" style="font-size: xx-large"></span>
-                    <a href="#" onclick="loadContent('tasks/userTasksStatus?status=overdue',this)" class="stretched-link"></a>
+                    <a href="#" onclick="loadContent('tasks/userTasksStatus?status=overdue',this)"
+                       class="stretched-link"></a>
                 </p>
             </div>
         </div>

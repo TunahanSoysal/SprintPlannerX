@@ -10,7 +10,8 @@ import java.util.List;
 
 @Repository
 public interface EventRepository extends JpaRepository<Event, Long> {
-        Event findEventByEventName(String eventName);
-        @Query("select distinct t.Event from Task t where ((t.Developer.username =:username)or (t.Analyst.username=:username))")
-        List<Event>getRegisteredByUsername(@Param("username") String username);
+    Event findEventByEventName(String eventName);
+
+    @Query("select distinct t.Event from Task t where ((t.Developer.username =:username)or (t.Analyst.username=:username))")
+    List<Event> getRegisteredByUsername(@Param("username") String username);
 }

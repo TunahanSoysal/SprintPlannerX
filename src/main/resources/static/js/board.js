@@ -53,7 +53,6 @@ function drop(event, targetListId) {
         });
 
 
-
     }
     updateTaskStatus(taskId, targetListId);
 
@@ -61,7 +60,7 @@ function drop(event, targetListId) {
 }
 
 function updateTaskStatus(taskId, newStatus) {
-    fetch('tasks/updateTaskStatus/'+taskId, {
+    fetch('tasks/updateTaskStatus/' + taskId, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'

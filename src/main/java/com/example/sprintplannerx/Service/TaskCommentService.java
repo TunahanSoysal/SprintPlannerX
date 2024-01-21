@@ -23,10 +23,12 @@ public class TaskCommentService {
         this.taskRepository = taskRepository;
     }
 
-    public List<TaskComment> findAllComments(){return taskCommentRepository.findAll();}
+    public List<TaskComment> findAllComments() {
+        return taskCommentRepository.findAll();
+    }
 
-    public void saveComment(String text, User user, Long taskId) throws Exception{
-        if (!text.isEmpty()){
+    public void saveComment(String text, User user, Long taskId) throws Exception {
+        if (!text.isEmpty()) {
             TaskComment comment = new TaskComment();
             Task task = taskRepository.findById(taskId).orElse(null);
 
@@ -35,7 +37,7 @@ public class TaskCommentService {
             comment.setTask(task);
 
             taskCommentRepository.save(comment);
-        }else{
+        } else {
             throw new Exception("Text field can not be empty!");
         }
     }

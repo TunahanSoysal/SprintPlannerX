@@ -3,13 +3,11 @@ package com.example.sprintplannerx.Service;
 
 import com.example.sprintplannerx.Entities.Event;
 import com.example.sprintplannerx.Entities.Task;
-
 import com.example.sprintplannerx.Repository.EventRepository;
 import com.example.sprintplannerx.Repository.TaskRepository;
 import com.example.sprintplannerx.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 
 import java.util.List;
 import java.util.Optional;
@@ -29,12 +27,13 @@ public class TaskService {
     public List<Task> getAllTasks() {
         return taskRepository.findAll();
     }
+
     public List<Task> getTasksByStatus(String status) {
         return taskRepository.findByStatus(status);
     }
 
-    public List<Task> getUserTasksByStatus(String username,String status) {
-        return taskRepository.findByUserAndStatus(username,status);
+    public List<Task> getUserTasksByStatus(String username, String status) {
+        return taskRepository.findByUserAndStatus(username, status);
     }
 
     public Task getTaskById(Long id) {
@@ -53,7 +52,7 @@ public class TaskService {
 
         Event newEvent = eventRepository.findEventByEventName(newTask.getEvent().getEventName());
         task.setEvent(newEvent);
-        List<Task> eventTasks =newEvent.getTasks();
+        List<Task> eventTasks = newEvent.getTasks();
         eventTasks.add(task);
         newEvent.setTasks(eventTasks);
 
@@ -61,10 +60,11 @@ public class TaskService {
         taskRepository.save(task);
         return task;
     }
+
     public Task updateOneTask(Long taskId, Task newTask) {
         Optional<Task> task = taskRepository.findById(taskId);
 
-        if (task.isPresent()){
+        if (task.isPresent()) {
             Task foundTask = task.get();
             foundTask.setName(newTask.getName());
             foundTask.setStatus(newTask.getStatus());
@@ -77,26 +77,26 @@ public class TaskService {
 
             Event newEvent = eventRepository.findEventByEventName(newTask.getEvent().getEventName());
             foundTask.setEvent(newEvent);
-            List<Task> eventTasks =newEvent.getTasks();
+            List<Task> eventTasks = newEvent.getTasks();
             eventTasks.add(foundTask);
             newEvent.setTasks(eventTasks);
 
             foundTask.setDueDate(newTask.getDueDate());
             taskRepository.save(foundTask);
             return foundTask;
-        }else{
-            return  null;
+        } else {
+            return null;
         }
     }
-    public Task updateTaskStatus(Long taskId, String newStatus){
+
+    public Task updateTaskStatus(Long taskId, String newStatus) {
         Optional<Task> task = taskRepository.findById(taskId);
-        if (task.isPresent()){
+        if (task.isPresent()) {
             Task foundTask = task.get();
             foundTask.setStatus(newStatus);
             taskRepository.save(foundTask);
-            return  foundTask;
-        }
-        else {
+            return foundTask;
+        } else {
             return null;
         }
     }
@@ -116,7 +116,7 @@ public class TaskService {
 
         List<Task> allTasks = taskRepository.findAll();
         return allTasks.stream()
-                .filter(task -> task.getDeveloper().getUsername().equals(username) || task.getAnalyst().getUsername().equals(username) ||task.getEvent().getLead().getUsername().equals(username))
+                .filter(task -> task.getDeveloper().getUsername().equals(username) || task.getAnalyst().getUsername().equals(username) || task.getEvent().getLead().getUsername().equals(username))
                 .collect(Collectors.toList());
     }
 
@@ -124,17 +124,19 @@ public class TaskService {
     public int getDoneTaskCountForUser(String username) {
         return taskRepository.getDoneTaskCountForUser(username);
     }
+
     public int getToDoTaskCountForUser(String username) {
         return taskRepository.getToDoTaskCountForUser(username);
     }
+
     public int getOverDueTaskCountForUser(String username) {
         return taskRepository.getOverdueTaskCountForUser(username);
     }
 
     public int getTotalTaskCountForUser(String username) {
         return getDoneTaskCountForUser(username)
-                +getOverDueTaskCountForUser(username)
-                 +getToDoTaskCountForUser(username);
+                + getOverDueTaskCountForUser(username)
+                + getToDoTaskCountForUser(username);
     }
 
     public String getPerformance(String username) {
@@ -149,7 +151,7 @@ public class TaskService {
         return String.format("%.2f%%", performance);
     }
 
-    public List<Task> getTasksByDueDateASC(String username){
+    public List<Task> getTasksByDueDateASC(String username) {
         return taskRepository.findAllOrderByDueDate(username);
 
     }

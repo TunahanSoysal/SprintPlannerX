@@ -3,9 +3,7 @@ package com.example.sprintplannerx.Controller;
 
 import com.example.sprintplannerx.Entities.User;
 import com.example.sprintplannerx.Service.UserService;
-
 import org.springframework.web.bind.annotation.*;
-
 
 import java.util.List;
 
@@ -19,44 +17,47 @@ public class UserController {
     }
 
     @GetMapping
-    public List<User> getAllUsers(){
+    public List<User> getAllUsers() {
         return userService.findAllUsers();
     }
 
 
     @GetMapping("/{userId}")
-    public User getOneUser(@PathVariable Integer userId){
+    public User getOneUser(@PathVariable Integer userId) {
         return userService.getOneUser(userId);
     }
 
-    @PutMapping(value ="/{userId}", consumes = "application/json", produces = "application/json")
+    @PutMapping(value = "/{userId}", consumes = "application/json", produces = "application/json")
     public User updateOneUser(@PathVariable String userId,
-                              @RequestBody User newUser){
+                              @RequestBody User newUser) {
         Integer userIdInt = Integer.parseInt(userId);
-        return userService.updateOneUser(userIdInt,newUser);
+        return userService.updateOneUser(userIdInt, newUser);
     }
-    @PutMapping(value ="/updateUsername/{userId}", consumes = "application/json", produces = "application/json")
-    public User updateUsername(@PathVariable Integer userId,@RequestBody String newUsername){
-        return userService.updateUserName(userId,newUsername);
+
+    @PutMapping(value = "/updateUsername/{userId}", consumes = "application/json", produces = "application/json")
+    public User updateUsername(@PathVariable Integer userId, @RequestBody String newUsername) {
+        return userService.updateUserName(userId, newUsername);
     }
-    @PutMapping(value ="/updateEmail/{userId}", consumes = "application/json", produces = "application/json")
-    public User updateEmail(@PathVariable Integer userId,@RequestBody String Email){
-        return userService.updateEmail(userId,Email);
+
+    @PutMapping(value = "/updateEmail/{userId}", consumes = "application/json", produces = "application/json")
+    public User updateEmail(@PathVariable Integer userId, @RequestBody String Email) {
+        return userService.updateEmail(userId, Email);
     }
-    @PutMapping(value ="/updateTracked/{userId}", consumes = "application/json", produces = "application/json")
-    public User updateTracked(@PathVariable Integer userId,@RequestBody String taskId){
+
+    @PutMapping(value = "/updateTracked/{userId}", consumes = "application/json", produces = "application/json")
+    public User updateTracked(@PathVariable Integer userId, @RequestBody String taskId) {
         Long longTaskId = Long.parseLong(taskId);
-        return userService.updateTracked(userId,longTaskId);
+        return userService.updateTracked(userId, longTaskId);
     }
 
     @DeleteMapping("/{userId}")
-    public void deleteOneUser(@PathVariable Integer userId){
+    public void deleteOneUser(@PathVariable Integer userId) {
         userService.deleteUserById(userId);
     }
 
     @PutMapping("/{userId}/{taskId}")
-    public void updateOnTrackedTask(@PathVariable Integer userId,@PathVariable Long taskId){
-         userService.updateOnTrackTaskByID(userId,taskId);
+    public void updateOnTrackedTask(@PathVariable Integer userId, @PathVariable Long taskId) {
+        userService.updateOnTrackTaskByID(userId, taskId);
     }
 
 }

@@ -25,8 +25,8 @@ public class EventController {
     public String getEventById(@PathVariable Long id, Model model, Principal principal) {
         String username = principal.getName();
         Event event = eventService.getEventById(id);
-        model.addAttribute("user",username);
-        model.addAttribute("event",event);
+        model.addAttribute("user", username);
+        model.addAttribute("event", event);
         return "eventView";
     }
 

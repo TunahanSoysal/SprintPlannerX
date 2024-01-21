@@ -201,6 +201,7 @@ function createTask() {
             alert('Task details saved successfully!');
         });
 }
+
 function createProject() {
     var newEventName = document.getElementById('newEventName').value;
     var newEventLead = document.getElementById('newEventLead').value;
@@ -218,7 +219,7 @@ function createProject() {
             lead: {
                 username: newEventLead
             },
-            startDate:  newEventStartingDate,
+            startDate: newEventStartingDate,
             endDate: newEventEndingDate
 
         }),
