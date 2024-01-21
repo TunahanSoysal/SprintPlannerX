@@ -3,10 +3,10 @@
     <div class="col-md-3 mb-4">
         <div class="card h-100">
             <div class="card-body" style="text-align: center;">
-                <h5 class="card-title">Completed Tasks</h5>
+                <h5 class="card-title">Uncompleted Tasks</h5>
                 <p class="card-text">
-                    <span id="doneTaskCount" th:text="${doneTaskCount}" style="font-size: xx-large"></span>
-                    <a href="#" onclick="loadContent('tasks/userTasksStatus?status=done',this)" class="stretched-link"></a>
+                    <span id="toDoTaskCount" th:text="${toDoTaskCount}" style="font-size: xx-large"></span>
+                    <a href="#" onclick="loadContent('tasks/userTasksStatus?status=todo',this)" class="stretched-link"></a>
                 </p>
             </div>
         </div>
@@ -14,10 +14,10 @@
     <div class="col-md-3 mb-4">
         <div class="card h-100">
             <div class="card-body" style="text-align: center;">
-                <h5 class="card-title">Uncompleted Tasks</h5>
+                <h5 class="card-title">Completed Tasks</h5>
                 <p class="card-text">
-                    <span id="toDoTaskCount" th:text="${toDoTaskCount}" style="font-size: xx-large"></span>
-                    <a href="#" onclick="loadContent('tasks/userTasksStatus?status=todo',this)" class="stretched-link"></a>
+                    <span id="doneTaskCount" th:text="${doneTaskCount}" style="font-size: xx-large"></span>
+                    <a href="#" onclick="loadContent('tasks/userTasksStatus?status=done',this)" class="stretched-link"></a>
                 </p>
             </div>
         </div>
@@ -63,7 +63,7 @@
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title">Performance</h5>
-                <p class="card-text">Add Performance Graph.</p>
+                <p class="card-text"> Performance Graph.</p>
             </div>
         </div>
     </div>

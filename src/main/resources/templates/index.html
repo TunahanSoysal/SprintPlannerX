@@ -86,7 +86,7 @@
                         <div style="font-size: 1.5em;">
                             <!-- Eğer onTrackedTask null değilse, task'ı göster -->
                             <p>
-                                <span style="font-weight: bold">On Track:</span>
+                                <span style="font-weight: bold">You are Tracking:</span>
                                 <span id="onTrackedTaskName" th:if="${onTrackedTask != null}" th:text="${onTrackedTask.event.eventName+'/'+onTrackedTask.name}"></span>
                             <!-- Eğer onTrackedTask null ise, mesajı göster -->
                                 <span th:unless="${onTrackedTask != null}">You are not tracking any task.</span>

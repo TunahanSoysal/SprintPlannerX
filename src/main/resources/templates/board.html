@@ -15,8 +15,6 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
             integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
             crossorigin="anonymous"></script>
-    <script>
-    </script>
 </head>
 
 <div class="container mt-5">
@@ -27,6 +25,7 @@
             <ul id="todo" class="task-list" ondrop="drop(event, 'todo')" ondragover="allowDrop(event)">
                 <li th:each="task :${UserTasks}" th:if="${task.status == 'todo'}" class="task" draggable="true" ondragstart="drag(event)" th:data-task-id="${task.ID}">
                     <span th:text="${task.name}"></span>
+                    <span class="badge bg-primary" th:if="${task.event.lead.username == user.username}">Lead</span>
                 </li>
             </ul>
         </div>
@@ -35,6 +34,7 @@
             <ul id="done" class="task-list" ondrop="drop(event, 'done')" ondragover="allowDrop(event)">
                 <li th:each="task :${UserTasks}" th:if="${task.status == 'done'}" class="task" draggable="true" ondragstart="drag(event)" th:data-task-id="${task.ID}">
                     <span th:text="${task.name}"></span>
+                    <span class="badge bg-primary" th:if="${task.event.lead.username == user.username}">Lead</span>
                 </li>
             </ul>
         </div>
@@ -43,6 +43,7 @@
             <ul id="overdue" class="task-list" ondrop="drop(event, 'overdue')" ondragover="allowDrop(event)">
                 <li th:each="task :${UserTasks}" th:if="${task.status == 'overdue'}" class="task" draggable="true" ondragstart="drag(event)" th:data-task-id="${task.ID}">
                     <span th:text="${task.name}"></span>
+                    <span class="badge bg-primary" th:if="${task.event.lead.username == user.username}">Lead</span>
                 </li>
             </ul>
         </div>

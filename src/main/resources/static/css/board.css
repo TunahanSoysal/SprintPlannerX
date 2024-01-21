@@ -10,19 +10,19 @@
 .task {
     margin: 5px 0;
     padding: 10px;
-    background-color: #424547;
-    border: 1px solid #d1d3e2;
+    background-color: #3f3f3f;
+    border: 1px solid #545454;
     cursor: grab;
     border-radius: 5px;
-    color: #d1d3e2;
+    color: #ffffff;
     transition: background-color 1s ease-in-out;
 }
 
 .task.dragging {
-    background-color: #424547;
-    color: #d1d3e2;
-    border-color: #d1d3e2;
-    opacity: 0.6;
+    background-color: #3f3f3f;
+    color: #ffffff;
+    border-color: #545454;
+    opacity: 0.8;
 }
 
 .dragging{

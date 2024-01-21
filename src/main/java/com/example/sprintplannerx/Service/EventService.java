@@ -1,15 +1,15 @@
 package com.example.sprintplannerx.Service;
 
 import com.example.sprintplannerx.Entities.Event;
+
 import com.example.sprintplannerx.Repository.EventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
+
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 import java.util.*;
-import java.util.stream.Collectors;
+
 
 @Service
 public class EventService {
@@ -41,26 +41,9 @@ public class EventService {
         eventRepository.deleteById(id);
     }
 
-    public List<Event> getRegisteredEvents(Authentication authentication) {
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        String username = userDetails.getUsername();
 
-        List<Event> allEvents = eventRepository.findAll();
-        return allEvents.stream()
-                .filter(event -> event
-                        .getTasks()
-                        .stream()
-                        .anyMatch(task -> task
-                                .getDeveloper()
-                                .getUsername()
-                                .equals(username)
-                                ||task
-                                .getAnalyst()
-                                .getUsername()
-                                .equals(username)
-                        )
-                )
-                .collect(Collectors.toList());
+    public List<Event> getRegisteredEvents(String username) {
+        return eventRepository.getRegisteredByUsername(username);
     }
 
 

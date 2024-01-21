@@ -1,15 +1,15 @@
 package com.example.sprintplannerx.Service;
 
-import com.example.sprintplannerx.Entities.Event;
+
 import com.example.sprintplannerx.Entities.Task;
-import com.example.sprintplannerx.Entities.User;
+
 import com.example.sprintplannerx.Repository.EventRepository;
 import com.example.sprintplannerx.Repository.TaskRepository;
 import com.example.sprintplannerx.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Date;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -40,16 +40,17 @@ public class TaskService {
         return taskRepository.findById(id).orElse(null);
     }
 
-    public Task createTask(String name, String status, User developer, User analyst, Date dueDate, Integer finalSP, Event event) {
+    public Task createTask(Task newTask) {
         Task task = new Task();
-        task.setName(name);
-        task.setStatus(status);
-        task.setDeveloper(developer);
-        task.setAnalyst(analyst);
-        task.setDueDate(dueDate);
-        task.setFinalSP(finalSP);
-        task.setEvent(event);
-        return taskRepository.save(task);
+        task.setName(newTask.getName());
+        task.setStatus(newTask.getStatus());
+        task.setDeveloper(userRepository.findByUsername(newTask.getDeveloper().getUsername()).orElse(null));
+        task.setAnalyst(userRepository.findByUsername(newTask.getAnalyst().getUsername()).orElse(null));
+        task.setFinalSP(newTask.getFinalSP());
+        task.setEvent(eventRepository.findEventByEventName(newTask.getEvent().getEventName()));
+        task.setDueDate(newTask.getDueDate());
+        taskRepository.save(task);
+        return task;
     }
     public Task updateOneTask(Long taskId, Task newTask) {
         Optional<Task> task = taskRepository.findById(taskId);
@@ -98,7 +99,7 @@ public class TaskService {
 
         List<Task> allTasks = taskRepository.findAll();
         return allTasks.stream()
-                .filter(task -> task.getDeveloper().getUsername().equals(username) || task.getAnalyst().getUsername().equals(username))
+                .filter(task -> task.getDeveloper().getUsername().equals(username) || task.getAnalyst().getUsername().equals(username) ||task.getEvent().getLead().getUsername().equals(username))
                 .collect(Collectors.toList());
     }
 

@@ -16,14 +16,13 @@
                 crossorigin="anonymous"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"
                 integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-                crossorigin="anonymous"></script>
-    </head>
+                crossorigin="anonymous"></script></head>
     <body>
 
         <div class="container mt-5">
 
             <div class="row">
-                <!-- Sol Tarafta Görev Listesi -->
+                <!-- TASK LIST -->
                 <div class="col-md-4">
                     <button type="button" class="btn btn-primary" onclick="loadContent('dashboard2',this)">
                         Back
@@ -41,20 +40,22 @@
                             th:data-task-due-date="${task.dueDate}"
                             th:data-task-final-s-p="${task.finalSP}"
                             th:data-task-event="${task.event.eventName}"
-                            th:data-task-is-starred="${task.starred}">
+                            th:data-task-is-starred="${task.starred}"
+                            th:data-task-event-lead="${task.event.lead.username}">
 
-                            <span th:text="${task.ID + ':'}"></span>
+                            <span th:text="${task.event.eventName + '/'}"></span>
                             <span th:text="${task.name}"></span>
 
-                            <span class="badge bg-dark" th:if="${task.developer.onTrackedTask == task && task.developer.name == user}">On Track Dev</span>
-                            <span class="badge bg-dark" th:if="${task.analyst.onTrackedTask == task && task.analyst.name == user}">On Track Analyst</span>
-                            <span class="badge bg-dark" th:if="${task.developer.onTrackedTask != task && task.developer.name == user}">Dev</span>
-                            <span class="badge bg-dark" th:if="${task.analyst.onTrackedTask != task && task.analyst.name == user}">Analyst</span>
+                            <span class="badge bg-dark" th:if="${task.developer.onTrackedTask == task && task.developer.name == user.username}">On Track Dev</span>
+                            <span class="badge bg-dark" th:if="${task.analyst.onTrackedTask == task && task.analyst.name == user.username}">On Track Analyst</span>
+                            <span class="badge bg-dark" th:if="${task.developer.onTrackedTask != task && task.developer.name == user.username}">Dev</span>
+                            <span class="badge bg-dark" th:if="${task.analyst.onTrackedTask != task && task.analyst.name == user.username}">Analyst</span>
+                            <span class="badge bg-dark" th:if="${task.event.lead.username == user.username}">Lead</span>
                         </li>
                     </ul>
                 </div>
 
-                <!-- Sağ Tarafta Görev Detayları -->
+                <!-- TASK DETAİLS -->
                 <div class="col-md-8">
                     <div id="taskDetailsContainer">
                         <div class="d-flex justify-content-end align-items-center">
@@ -69,7 +70,13 @@
                                         <h5 class="card-title">Task Details</h5>
                                         <input type="checkbox" class="form-check-input" id="taskIsStarred" value="" hidden="hidden">
                                         <label class="form-check-label" for="taskIsStarred" id="heartLabel">&#x2665;</label>
+
                                     </div>
+                                    <button type="button" class="btn" id="onTrackButton"
+                                            onclick="trackTask(this)"
+                                            th:data-user-id="${user.id}">
+                                        <span id="onTrackIcon">&#10004;</span> Track this task
+                                    </button>
                                     <div class="mb-3">
                                         <label for="taskId" class="form-label">ID</label>
                                         <input type="text" class="form-control" id="taskId" value="" readonly >
@@ -80,7 +87,6 @@
                                     </div>
                                     <div class="mb-3">
                                         <label for="taskStatus" class="form-label">Status</label>
-<!--                                        <input type="text" class="form-control" id="taskStatus" value="" >-->
                                         <select class="form-select" id="taskStatus" th:disabled="${not isAdmin}">
                                             <option value="todo">Todo</option>
                                             <option value="done">Done</option>
@@ -89,14 +95,12 @@
                                     </div>
                                     <div class="mb-3">
                                         <label for="taskDeveloper" class="form-label">Developer</label>
-<!--                                        <input type="text" class="form-control" id="taskDeveloper" value="" >-->
                                         <select class="form-select" id="taskDeveloper" th:field="*{user}" th:disabled="${not isAdmin}">
                                             <option th:each="user: ${allUsers}" th:text="${user.username}" th:value="${user.username}"></option>
                                         </select>
                                     </div>
                                     <div class="mb-3">
                                         <label for="taskAnalyst" class="form-label">Analyst</label>
-<!--                                        <input type="text" class="form-control" id="taskAnalyst" value="" >-->
                                         <select class="form-select" id="taskAnalyst" th:disabled="${not isAdmin}">
                                             <option th:each="user: ${allUsers}" th:text="${user.username}" th:value="${user.username}"></option>
                                         </select>
@@ -111,7 +115,6 @@
                                     </div>
                                     <div class="mb-3">
                                         <label for="taskEvent" class="form-label">Event</label>
-<!--                                        <input type="text" class="form-control" id="taskEvent" value="" >-->
                                         <select class="form-select" id="taskEvent" th:disabled="${not isAdmin}">
                                             <option th:each="event: ${allEvents}" th:text="${event.eventName}" th:value="${event.eventName}"></option>
                                         </select>
@@ -133,11 +136,51 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        ...
+                        <form action="/tasks">
+                            <div class="mb-3">
+                                <label for="newTaskName" class="form-label">Name</label>
+                                <input type="text" class="form-control" id="newTaskName" value="" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="newTaskStatus" class="form-label">Status</label>
+                                <select class="form-select" id="newTaskStatus">
+                                    <option value="todo">Todo</option>
+                                    <option value="done">Done</option>
+                                    <option value="overdue">Overdue</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="newTaskDeveloper" class="form-label">Developer</label>
+                                <select class="form-select" id="newTaskDeveloper" th:field="*{user}">
+                                    <option th:each="user: ${allUsers}" th:text="${user.username}" th:value="${user.username}"></option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="newTaskAnalyst" class="form-label">Analyst</label>
+                                <select class="form-select" id="newTaskAnalyst">
+                                    <option th:each="user: ${allUsers}" th:text="${user.username}" th:value="${user.username}"></option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="newTaskDueDate" class="form-label">Due Date</label>
+                                <input type="text" class="form-control" id="newTaskDueDate" value="" >
+                            </div>
+                            <div class="mb-3">
+                                <label for="newTaskFinalSp" class="form-label">Final SP</label>
+                                <input type="number" class="form-control" id="newTaskFinalSp" value="" >
+                            </div>
+                            <div class="mb-3">
+                                <label for="newTaskEvent" class="form-label">Event</label>
+                                <select class="form-select" id="newTaskEvent">
+                                    <option th:each="event: ${allEvents}" th:text="${event.eventName}" th:value="${event.eventName}"></option>
+                                </select>
+                            </div>
+                            <button type="button" class="btn btn-primary" onclick="createTask()">Save</button>
+                        </form>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-primary" onclick="createTask()">Save changes</button>
                     </div>
                 </div>
             </div>

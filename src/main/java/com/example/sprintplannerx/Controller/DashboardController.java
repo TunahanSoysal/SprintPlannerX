@@ -57,6 +57,8 @@ public class DashboardController {
     private void importModels(Model model, Principal principal) {
 
         String username = principal.getName();
+        User user = userService.getUserByUsername(username);
+        model.addAttribute("user",user);
 
         int doneTaskCount = taskService.getDoneTaskCountForUser(username);
         model.addAttribute("doneTaskCount",doneTaskCount);
@@ -79,7 +81,7 @@ public class DashboardController {
         Task onTrackedTask = userService.getOnTrackTaskByUsername(username);
         model.addAttribute("onTrackedTask",onTrackedTask);
 
-        List<Event> registeredEvents = eventService.getRegisteredEvents(authentication);
+        List<Event> registeredEvents = eventService.getRegisteredEvents(username);
         model.addAttribute("registeredEvents", registeredEvents);
 
         List<Task> upcomingTasks = taskService.getTasksByDueDateASC(username);

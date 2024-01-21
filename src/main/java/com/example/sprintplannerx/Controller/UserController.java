@@ -43,6 +43,11 @@ public class UserController {
     public User updateEmail(@PathVariable Integer userId,@RequestBody String Email){
         return userService.updateEmail(userId,Email);
     }
+    @PutMapping(value ="/updateTracked/{userId}", consumes = "application/json", produces = "application/json")
+    public User updateTracked(@PathVariable Integer userId,@RequestBody String taskId){
+        Long longTaskId = Long.parseLong(taskId);
+        return userService.updateTracked(userId,longTaskId);
+    }
 
     @DeleteMapping("/{userId}")
     public void deleteOneUser(@PathVariable Integer userId){

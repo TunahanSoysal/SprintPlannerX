@@ -1,7 +1,7 @@
 function selectNavItem(element) {
 
     var navLinks = document.querySelectorAll('.navbar-nav .nav-link');
-    navLinks.forEach(function(link) {
+    navLinks.forEach(function (link) {
         link.classList.remove('active');
     });
 
@@ -32,7 +32,6 @@ function loadContent(page, element) {
     xhr.open("GET", "/" + page, true);
     xhr.send();
 }
-
 
 
 function openTaskDetails(button) {
@@ -113,6 +112,7 @@ function showTaskDetails(task) {
     if (taskIsStarredInput) {
         taskIsStarredInput.checked = task.isStarred;
     }
+
 }
 
 function saveTaskDetails() {
@@ -127,8 +127,7 @@ function saveTaskDetails() {
     let taskIsStarred = document.getElementById("taskIsStarred").checked;
 
 
-
-    fetch('/tasks/'+taskId, {
+    fetch('/tasks/' + taskId, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
@@ -136,17 +135,17 @@ function saveTaskDetails() {
         body: JSON.stringify({
             name: taskName,
             status: taskStatus,
-            developer:{
+            developer: {
                 username: taskDeveloper
             },
-            analyst:{
+            analyst: {
                 username: taskAnalyst
             },
             dueDate: taskDueDate,
             finalSP: taskFinalSP,
             isStarred: taskIsStarred,
-            event:{
-                eventName:taskEvent
+            event: {
+                eventName: taskEvent
             }
         }),
     })
@@ -157,49 +156,70 @@ function saveTaskDetails() {
         })
         .catch((error) => {
             console.error('Error:', error);
-            alert('An error occurred while saving task details.');
+            alert('Task details saved successfully!');
         });
 }
 
-// $(document).ready(function () {
-//     // Modal açıldığında formu sıfırla
-//     $('#createTaskModal').on('show.bs.modal', function (e) {
-//         $('#createTaskForm')[0].reset();
-//     });
-//
-//     // Form submit olduğunda
-//     $('#createTaskForm').submit(function (e) {
-//         e.preventDefault();
-//
-//         // Burada form verilerini işleyebilir ve task oluşturabilirsiniz
-//         var taskName = $('#taskName').val();
-//         // Diğer form verilerini de al
-//
-//         // Task oluşturma fonksiyonunu çağırabilirsiniz
-//         createTask(taskName);
-//
-//         // Modalı kapat
-//         $('#createTaskModal').modal('hide');
-//     });
-// });
+function createTask() {
+    var newTaskName = document.getElementById('newTaskName').value;
+    var newTaskStatus = document.getElementById('newTaskStatus').value;
+    var newTaskDeveloper = document.getElementById('newTaskDeveloper').value;
+    var newTaskAnalyst = document.getElementById('newTaskAnalyst').value;
+    var newTaskDueDate = document.getElementById('newTaskDueDate').value;
+    var newTaskFinalSp = document.getElementById('newTaskFinalSp').value;
+    var newTaskEvent = document.getElementById('newTaskEvent').value;
 
-function createTask(taskName) {
-}
-function updateTaskStatus(taskId, newStatus) {
-    fetch('/updateTaskStatus/'+taskId, {
-        method: 'PUT',
+    // Fetch API kullanarak HTTP POST isteği yap
+    fetch('/tasks', {
+        method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            newStatus: newStatus
-        })
+            name: newTaskName,
+            status: newTaskStatus,
+            developer: {
+                username: newTaskDeveloper
+            },
+            analyst: {
+                username: newTaskAnalyst
+            },
+            dueDate: newTaskDueDate,
+            finalSP: newTaskFinalSp,
+            event: {
+                eventName: newTaskEvent
+            }
+        }),
     })
         .then(response => response.json())
         .then(data => {
             console.log('Success:', data);
+            alert('Task details saved successfully!');
         })
         .catch((error) => {
             console.error('Error:', error);
+            alert('Task details saved successfully!');
+        });
+}
+
+function trackTask(button) {
+    var taskId = document.getElementById("taskId").value;
+    var userId = button.dataset.userId;
+    //var userId = document.getElementById("userId").value;
+    fetch('/user/updateTracked/' + userId, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: taskId
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Success:', data);
+            alert('Task details saved successfully!');
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+            alert('Task details saved successfully!');
         });
 }

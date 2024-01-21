@@ -18,7 +18,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
-import java.sql.Date;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
@@ -58,17 +57,26 @@ public class TaskController {
     @GetMapping("userTasks")
     public String listTasksUser(Model model, Principal principal, Authentication authentication) {
         String username = principal.getName();
+        model.addAttribute("userName",username);
+
         List<Task> tasks = taskService.getTasksByUserName(username);
         model.addAttribute("tasks", tasks);
-        model.addAttribute("userName",username);
+
+        List<Task> allTasks = taskService.getAllTasks();
+        model.addAttribute("allTasks", allTasks);
+
         List<User> allUsers = userService.findAllUsers();
         model.addAttribute("allUsers",allUsers);
+
         List<Event> allEvents = eventService.getAllEvents();
         model.addAttribute("allEvents",allEvents);
+
         User user = userService.getUserByUsername(username);
         model.addAttribute("user",user);
+
         Set<Role> userRoles = user.getRoles();
         model.addAttribute("userRoles",userRoles);
+
         if (authentication != null && authentication.getPrincipal() instanceof org.springframework.security.core.userdetails.User) {
             Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
             boolean isAdmin = authorities.stream().anyMatch(r -> r.getAuthority().equals("ROLE_ADMIN"));
@@ -83,13 +91,17 @@ public class TaskController {
     public String listTasksUserByStatus(@RequestParam(name = "status", required = false) String status,Model model, Principal principal, Authentication authentication) {
         String username = principal.getName();
         User user = userService.getUserByUsername(username);
+        model.addAttribute("user",user);
+
         List<Task> tasks = taskService.getUserTasksByStatus(username, status);
         model.addAttribute("tasks", tasks);
-        model.addAttribute("user",user);
+
         List<User> allUsers = userService.findAllUsers();
         model.addAttribute("allUsers",allUsers);
+
         List<Event> allEvents = eventService.getAllEvents();
         model.addAttribute("allEvents",allEvents);
+
         if (authentication != null && authentication.getPrincipal() instanceof org.springframework.security.core.userdetails.User) {
             Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
             boolean isAdmin = authorities.stream().anyMatch(r -> r.getAuthority().equals("ROLE_ADMIN"));
@@ -109,6 +121,7 @@ public class TaskController {
         model.addAttribute("allUsers",allUsers);
         List<Event> allEvents = eventService.getAllEvents();
         model.addAttribute("allEvents",allEvents);
+
         if (authentication != null && authentication.getPrincipal() instanceof org.springframework.security.core.userdetails.User) {
             Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
             boolean isAdmin = authorities.stream().anyMatch(r -> r.getAuthority().equals("ROLE_ADMIN"));
@@ -125,22 +138,20 @@ public class TaskController {
     }
 
     @PostMapping
-    public Task createTask(
-            @RequestParam String name,
-            @RequestParam String status,
-            @RequestParam User developer,
-            @RequestParam User analyst,
-            @RequestParam Date dueDate,
-            @RequestParam Integer finalSP,
-            @RequestParam Event event
-    ) {
-        return taskService.createTask(name, status, developer, analyst, dueDate, finalSP, event);
+    public Task createTask(@RequestBody Task newTask) {
+        return taskService.createTask(newTask);
     }
 
     @PutMapping(value ="/{taskId}", consumes = "application/json", produces = "application/json")
-    public Task updateOneTask(@PathVariable Long taskId,
+    public ResponseEntity<String> updateOneTask(@PathVariable Long taskId,
                               @RequestBody Task newTask){
-        return taskService.updateOneTask(taskId,newTask);
+
+        Task updatedTask = taskService.updateOneTask(taskId,newTask);
+        if (updatedTask != null) {
+            return ResponseEntity.ok("Task updated successfully");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Task not found");
+        }
     }
 
     @PutMapping("/updateTaskStatus/{taskId}")

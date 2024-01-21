@@ -1,5 +1,6 @@
 package com.example.sprintplannerx.Service;
 
+
 import com.example.sprintplannerx.Entities.Role;
 import com.example.sprintplannerx.Entities.Task;
 import com.example.sprintplannerx.Entities.User;
@@ -34,9 +35,6 @@ public class UserService {
     public List<User> findAllUsers() {
         return userRepository.findAll();
     }
-    public User saveUser(User newUser) {
-        return userRepository.save(newUser);
-    }
     public User getOneUser(Integer userId) {
         return userRepository.findById(userId).orElse(null);
     }
@@ -70,6 +68,18 @@ public class UserService {
         if (user.isPresent()){
             User foundUser = user.get();
             foundUser.setEmail(email);
+            userRepository.save(foundUser);
+            return foundUser;
+        }else{
+            return  null;
+        }
+    }
+    public User updateTracked(Integer userId, Long taskId){
+        Optional<User> user = userRepository.findById(userId);
+        Task newTask = taskRepository.getTaskByID(taskId);
+        if (user.isPresent()){
+            User foundUser = user.get();
+            foundUser.setOnTrackedTask(newTask);
             userRepository.save(foundUser);
             return foundUser;
         }else{
