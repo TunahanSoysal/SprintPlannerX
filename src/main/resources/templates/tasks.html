@@ -56,6 +56,11 @@
                     <span class="badge bg-dark"
                           th:if="${task.analyst.onTrackedTask != task && task.analyst.name == user.username}">Analyst</span>
                     <span class="badge bg-dark" th:if="${task.event.lead.username == user.username}">Lead</span>
+
+                    <div class="ml-auto">
+                        <span class="badge bg-danger" th:onclick="'deleteTask(\'' + ${task.ID} + '\')'" style="cursor: pointer;">Delete</span>
+                    </div>
+
                 </li>
             </ul>
         </div>
@@ -194,10 +199,6 @@
                     </div>
                     <button type="button" class="btn btn-primary" onclick="createTask()">Save</button>
                 </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" onclick="createTask()">Save changes</button>
             </div>
         </div>
     </div>

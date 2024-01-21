@@ -234,6 +234,23 @@ function createProject() {
             alert('Task details saved successfully!');
         });
 }
+function deleteTask(taskId){
+    fetch('tasks/delete/'+taskId,{
+        method:'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Success:', data);
+            alert('Task details saved successfully!');
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+            alert('Task details saved successfully!');
+        });
+}
 
 function trackTask(button) {
     var taskId = document.getElementById("taskId").value;

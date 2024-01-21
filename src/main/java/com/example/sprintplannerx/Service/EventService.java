@@ -47,5 +47,12 @@ public class EventService {
         return eventRepository.getRegisteredByUsername(username);
     }
 
+    public void deleteEventsByTaskId(Long taskId) {
+        eventRepository.findByTasksId(taskId).forEach(event -> {
+            event.getTasks().removeIf(task -> task.getID().equals(taskId));
+            eventRepository.save(event);
+        });
+    }
+
 
 }

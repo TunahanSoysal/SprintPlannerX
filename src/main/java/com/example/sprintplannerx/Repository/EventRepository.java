@@ -14,4 +14,8 @@ public interface EventRepository extends JpaRepository<Event, Long> {
 
     @Query("select distinct t.Event from Task t where ((t.Developer.username =:username)or (t.Analyst.username=:username))")
     List<Event> getRegisteredByUsername(@Param("username") String username);
+
+    @Query("SELECT e FROM Event e JOIN e.tasks t WHERE t.ID = :taskId")
+    List<Event> findByTasksId(@Param("taskId") Long taskId);
+
 }

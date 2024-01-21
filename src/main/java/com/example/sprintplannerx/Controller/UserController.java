@@ -34,9 +34,9 @@ public class UserController {
         return userService.updateOneUser(userIdInt, newUser);
     }
 
-    @PutMapping(value = "/updateUsername/{userId}", consumes = "application/json", produces = "application/json")
-    public User updateUsername(@PathVariable Integer userId, @RequestBody String newUsername) {
-        return userService.updateUserName(userId, newUsername);
+    @PutMapping(value = "/updateName/{userId}", consumes = "application/json", produces = "application/json")
+    public User updateUsername(@PathVariable Integer userId, @RequestBody String newName) {
+        return userService.updateUserName(userId, newName);
     }
 
     @PutMapping(value = "/updateEmail/{userId}", consumes = "application/json", produces = "application/json")

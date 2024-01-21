@@ -54,12 +54,17 @@ public class TaskController {
     }
 
     @GetMapping("userTasks")
-    public String listTasksUser(Model model, Principal principal, Authentication authentication) {
+    public String listTasksUser(@RequestParam(name = "favorite", required = false) String favorite,Model model, Principal principal, Authentication authentication) {
         String username = principal.getName();
         model.addAttribute("userName", username);
+        if (!favorite.isEmpty()){
+            List<Task> tasks = taskService.getFavoriteTasks(username);
+            model.addAttribute("tasks", tasks);
+        }else {
+            List<Task> tasks = taskService.getTasksByUserName(username);
+            model.addAttribute("tasks", tasks);
+        }
 
-        List<Task> tasks = taskService.getTasksByUserName(username);
-        model.addAttribute("tasks", tasks);
 
         List<Task> allTasks = taskService.getAllTasks();
         model.addAttribute("allTasks", allTasks);
@@ -113,11 +118,14 @@ public class TaskController {
     public String listTasksUserFavorites(Model model, Principal principal, Authentication authentication) {
         String username = principal.getName();
         User user = userService.getUserByUsername(username);
+        model.addAttribute("user", user);
+
         List<Task> starredTasks = taskService.getStarredTasks(username);
         model.addAttribute("starredTasks", starredTasks);
-        model.addAttribute("user", user);
+
         List<User> allUsers = userService.findAllUsers();
         model.addAttribute("allUsers", allUsers);
+
         List<Event> allEvents = eventService.getAllEvents();
         model.addAttribute("allEvents", allEvents);
 
@@ -166,9 +174,9 @@ public class TaskController {
         }
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public void deleteTask(@PathVariable Long id) {
-        taskService.deleteTask(id);
+        taskService.deleteTaskById(id);
     }
 
 }

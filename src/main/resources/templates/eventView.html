@@ -34,25 +34,17 @@
             <h6 class="card-subtitle mb-2 text-muted">Lead:</h6>
             <p class="card-text">
                 <strong>Name:</strong> <span th:text="${event.lead.name}"></span><br>
-                <strong>Username:</strong> <span th:text="${event.lead.username}"></span><br>
+                <strong>Username:</strong> <span th:text="${event.lead.name}"></span><br>
                 <strong>Email:</strong> <span th:text="${event.lead.email}"></span>
             </p>
-            <h6 class="card-subtitle mb-2 text-muted">Users:</h6>
-            <ul class="list-group">
-                <li th:each="user : ${event.getUsers()}" class="list-group-item">
-                    <strong>Name:</strong> <span th:text="${user.name}"></span><br>
-                    <strong>Username:</strong> <span th:text="${user.username}"></span><br>
-                    <strong>Email:</strong> <span th:text="${user.email}"></span>
-                </li>
-            </ul>
             <br>
             <h6 class="card-subtitle mb-2 text-muted">Tasks:</h6>
             <ul class="list-group">
                 <li th:each="task : ${event.tasks}" class="list-group-item">
                     <strong>ID:</strong> <span th:text="${task.ID}"></span><br>
                     <strong>Name:</strong> <span th:text="${task.name}"></span><br>
-                    <strong>Developer:</strong> <span th:text="${task.developer.username}"></span><br>
-                    <strong>Analyst:</strong> <span th:text="${task.analyst.username}"></span><br>
+                    <strong>Developer:</strong> <span th:text="${task.developer.name}"></span><br>
+                    <strong>Analyst:</strong> <span th:text="${task.analyst.name}"></span><br>
                     <strong>Story Point:</strong> <span th:text="${task.finalSP}"></span><br>
                 </li>
             </ul>

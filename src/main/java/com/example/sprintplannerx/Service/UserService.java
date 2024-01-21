@@ -53,11 +53,11 @@ public class UserService {
         }
     }
 
-    public User updateUserName(Integer userId, String username) {
+    public User updateUserName(Integer userId, String name) {
         Optional<User> user = userRepository.findById(userId);
         if (user.isPresent()) {
             User foundUser = user.get();
-            foundUser.setUsername(username);
+            foundUser.setName(name);
             userRepository.save(foundUser);
             return foundUser;
         } else {

@@ -24,6 +24,10 @@ public class TaskService {
     @Autowired
     private EventRepository eventRepository;
 
+    @Autowired
+    private EventService eventService;
+
+
     public List<Task> getAllTasks() {
         return taskRepository.findAll();
     }
@@ -64,28 +68,20 @@ public class TaskService {
     public Task updateOneTask(Long taskId, Task newTask) {
         Optional<Task> task = taskRepository.findById(taskId);
 
-        if (task.isPresent()) {
+        if (task.isPresent()){
             Task foundTask = task.get();
             foundTask.setName(newTask.getName());
             foundTask.setStatus(newTask.getStatus());
-
             foundTask.setDeveloper(userRepository.findByUsername(newTask.getDeveloper().getUsername()).orElse(null));
             foundTask.setAnalyst(userRepository.findByUsername(newTask.getAnalyst().getUsername()).orElse(null));
-
             foundTask.setFinalSP(newTask.getFinalSP());
             foundTask.setIsStarred(newTask.isStarred());
-
-            Event newEvent = eventRepository.findEventByEventName(newTask.getEvent().getEventName());
-            foundTask.setEvent(newEvent);
-            List<Task> eventTasks = newEvent.getTasks();
-            eventTasks.add(foundTask);
-            newEvent.setTasks(eventTasks);
-
+            foundTask.setEvent(eventRepository.findEventByEventName(newTask.getEvent().getEventName()));
             foundTask.setDueDate(newTask.getDueDate());
             taskRepository.save(foundTask);
             return foundTask;
-        } else {
-            return null;
+        }else{
+            return  null;
         }
     }
 
@@ -101,8 +97,9 @@ public class TaskService {
         }
     }
 
-    public void deleteTask(Long id) {
-        taskRepository.deleteById(id);
+    public void deleteTaskById(Long taskId) {
+        eventService.deleteEventsByTaskId(taskId);
+        taskRepository.deleteById(taskId);
     }
 
     public List<Task> getStarredTasks(String username) {
@@ -117,6 +114,13 @@ public class TaskService {
         List<Task> allTasks = taskRepository.findAll();
         return allTasks.stream()
                 .filter(task -> task.getDeveloper().getUsername().equals(username) || task.getAnalyst().getUsername().equals(username) || task.getEvent().getLead().getUsername().equals(username))
+                .collect(Collectors.toList());
+    }
+    public List<Task> getFavoriteTasks(String username) {
+        List<Task> allTasks = taskRepository.findAll();
+        return allTasks.stream()
+                .filter(task -> task.getDeveloper().getUsername().equals(username) || task.getAnalyst().getUsername().equals(username) || task.getEvent().getLead().getUsername().equals(username))
+                .filter(Task::isStarred)
                 .collect(Collectors.toList());
     }
 

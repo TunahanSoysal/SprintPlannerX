@@ -38,12 +38,14 @@
                         <strong>ID:</strong> <span th:text="${currentUser.id}" id="idValue"></span><br>
 
                         <strong>Username:</strong> <span th:text="${currentUser.username}" id="usernameValue"></span>
-                        <button type="button" class="btn btn-secondary" data-bs-toggle="modal"
-                                data-bs-target="#changeUsernameModal">Change
-                        </button>
+
                         <br>
 
-                        <strong>Name:</strong> <span th:text="${currentUser.name}"></span><br>
+                        <strong>Name:</strong> <span th:text="${currentUser.name}"></span>
+                        <button type="button" class="btn btn-secondary" data-bs-toggle="modal"
+                                data-bs-target="#changeNameModal">Change
+                        </button>
+                        <br>
 
                         <strong>Email:</strong> <span th:text="${currentUser.email}"></span>
                         <button type="button" class="btn btn-secondary" data-bs-toggle="modal"
@@ -70,23 +72,23 @@
 </div>
 
 <!-- Change Username Modal -->
-<div class="modal fade" id="changeUsernameModal" tabindex="-1" aria-labelledby="ModalLabel1" aria-hidden="true">
+<div class="modal fade" id="changeNameModal" tabindex="-1" aria-labelledby="ModalLabel1" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="ModalLabel1">Change Username</h5>
+                <h5 class="modal-title" id="ModalLabel1">Change Name</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="changeUsernameForm">
+                <form id="changeNameForm">
                     <div class="mb-3">
                         <label for="userId"></label>
                         <input type="number" class="form-control" id="userId" th:value="${currentUser.id}"
                                hidden="hidden">
-                        <label for="newUsername" class="form-label">New Username</label>
-                        <input type="text" class="form-control" id="newUsername" th:value="${currentUser.username}">
+                        <label for="newName" class="form-label">New Name</label>
+                        <input type="text" class="form-control" id="newName" th:value="${currentUser.name}">
                     </div>
-                    <button type="button" class="btn btn-primary" onclick="saveUserName()">Save Changes</button>
+                    <button type="button" class="btn btn-primary" onclick="saveName()">Save Changes</button>
                 </form>
             </div>
         </div>
@@ -117,18 +119,18 @@
 </div>
 
 <script>
-    function saveUserName() {
+    function saveName() {
 
-        var newUsername = document.getElementById("newUsername").value.toString();
+        var newName = document.getElementById("newName").value.toString();
         var userId = document.getElementById("userId").value;
 
 
-        fetch('/user/updateUsername/' + userId, {
+        fetch('/user/updateName/' + userId, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: newUsername,
+            body: newName,
         })
             .then(response => response.json())
             .then(data => {
