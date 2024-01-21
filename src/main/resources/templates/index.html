@@ -16,6 +16,8 @@
         <script th:src="@{/js/dashboard.js}"></script>
         <link rel="stylesheet" th:href="@{/css/board.css}">
         <script th:src="@{/js/board.js}"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     </head>
 
     <body>
@@ -56,23 +58,26 @@
                                         <path d="M0 13a1.5 1.5 0 0 0 1.5 1.5h13A1.5 1.5 0 0 0 16 13V6a1.5 1.5 0 0 0-1.5-1.5h-13A1.5 1.5 0 0 0 0 6zM2 3a.5.5 0 0 0 .5.5h11a.5.5 0 0 0 0-1h-11A.5.5 0 0 0 2 3m2-2a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 0-1h-7A.5.5 0 0 0 4 1"/>
                                     </svg>
                                     Projects
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createEventModal">
+                                        +
+                                    </button>
                                 </p>
+
                                 <ul class="list-group p-1">
+
                                     <th:block th:each="event : ${registeredEvents}">
                                         <li class="list-group-item bg-transparent border-0">
                                             <a class="nav-link" th:href="@{'/events/' + ${event.id}}" th:text="${event.eventName}"></a>
                                         </li>
                                     </th:block>
                                 </ul>
+
                             </li>
                         </ul>
                     </div>
                 </nav>
                 <div id="sidebarBottom" class="fixed-bottom">
                     <ul class="nav">
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/profile}">Profile</a>
-                        </li>
                         <li class="nav-item">
                             <a class="nav-link" th:href="@{/logout}">Logout</a>
                         </li>
@@ -82,19 +87,16 @@
 
                 <!-- İkincil Başlık ve İki Farklı Bölüm -->
                 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 text-dark" id="abc">
-                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
-                        <div style="font-size: 1.5em;">
-                            <!-- Eğer onTrackedTask null değilse, task'ı göster -->
-                            <p>
-                                <span style="font-weight: bold">You are Tracking:</span>
-                                <span id="onTrackedTaskName" th:if="${onTrackedTask != null}" th:text="${onTrackedTask.event.eventName+'/'+onTrackedTask.name}"></span>
-                            <!-- Eğer onTrackedTask null ise, mesajı göster -->
-                                <span th:unless="${onTrackedTask != null}">You are not tracking any task.</span>
-                            </p>
+                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3" style="font-size: 1.5em">
+                        <p>
+                            <span style="font-weight: bold">You are Tracking:</span>
+                            <span id="onTrackedTaskName" th:if="${onTrackedTask != null}" th:text="${onTrackedTask.event.eventName+'/'+onTrackedTask.name}"></span>
+                            <span th:unless="${onTrackedTask != null}">You are not tracking any task.</span>
+                        </p>
+                        <div style="display: flex; align-items: center; margin-left: auto;">
+                            <i class="fas fa-user-circle fa-lg" style="margin-right: 5px;"></i>
+                            <a th:href="@{/profile}" th:text="${currentUser.username}" style="text-decoration: none; color: #000000;"></a>
                         </div>
-
-
-
                     </div>
                     <!-- Secondary Navbar -->
                     <nav class="navbar navbar-expand-lg navbar-light bg-light" id="secondary_navbar">
@@ -123,8 +125,49 @@
                     </div>
 
 
+
+
+
                 </main>
             </div>
         </div>
+        <div class="modal fade" id="createEventModal" tabindex="-1" aria-labelledby="ModalLabel2" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="ModalLabel2">Create Event</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="/events">
+                            <div class="mb-3">
+                                <label for="newEventName" class="form-label">Name</label>
+                                <input type="text" class="form-control" id="newEventName" value="" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="newEventStartingDate" class="form-label">start Date</label>
+                                <input type="text" class="form-control" id="newEventStartingDate" value="" >
+                            </div>
+                            <div class="mb-3">
+                                <label for="newEventEndingDate" class="form-label">end Date</label>
+                                <input type="text" class="form-control" id="newEventEndingDate" value="" >
+                            </div>
+                            <div class="mb-3">
+                                <label for="newEventLead" class="form-label">Lead</label>
+                                <select class="form-select" id="newEventLead">
+                                    <option th:each="user: ${allUsers}" th:text="${user.username}" th:value="${user.username}"></option>
+                                </select>
+                            </div>
+                            <button type="button" class="btn btn-primary" onclick="createProject()">Save</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" onclick="createProject()">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </body>
 </html>

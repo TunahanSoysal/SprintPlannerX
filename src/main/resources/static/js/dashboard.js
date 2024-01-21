@@ -169,7 +169,7 @@ function createTask() {
     var newTaskFinalSp = document.getElementById('newTaskFinalSp').value;
     var newTaskEvent = document.getElementById('newTaskEvent').value;
 
-    // Fetch API kullanarak HTTP POST isteği yap
+
     fetch('/tasks', {
         method: 'POST',
         headers: {
@@ -189,6 +189,38 @@ function createTask() {
             event: {
                 eventName: newTaskEvent
             }
+        }),
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Success:', data);
+            alert('Task details saved successfully!');
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+            alert('Task details saved successfully!');
+        });
+}
+function createProject() {
+    var newEventName = document.getElementById('newEventName').value;
+    var newEventLead = document.getElementById('newEventLead').value;
+    var newEventStartingDate = document.getElementById('newEventStartingDate').value;
+    var newEventEndingDate = document.getElementById('newEventEndingDate').value;
+
+    // Fetch API kullanarak HTTP POST isteği yap
+    fetch('/events', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            eventName: newEventName,
+            lead: {
+                username: newEventLead
+            },
+            startDate:  newEventStartingDate,
+            endDate: newEventEndingDate
+
         }),
     })
         .then(response => response.json())

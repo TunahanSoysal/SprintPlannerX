@@ -8,11 +8,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
-import java.sql.Date;
 import java.util.List;
 
 @Controller
-@RequestMapping("/events")
+@RequestMapping("events")
 public class EventController {
     @Autowired
     private EventService eventService;
@@ -31,11 +30,9 @@ public class EventController {
         return "eventView";
     }
 
-    @PostMapping
-    public Event createEvent(@RequestParam String eventName,
-                             @RequestParam Date startDate,
-                             @RequestParam Date endDate) {
-        return eventService.createEvent(eventName, startDate, endDate);
+    @PostMapping(consumes = "application/json", produces = "application/json")
+    public Event createEvent(@RequestBody Event newEvent) {
+        return eventService.createNewEvent(newEvent);
     }
 
     @DeleteMapping("/{id}")

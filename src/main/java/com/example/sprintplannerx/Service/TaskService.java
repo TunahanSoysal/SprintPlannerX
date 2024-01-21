@@ -1,6 +1,7 @@
 package com.example.sprintplannerx.Service;
 
 
+import com.example.sprintplannerx.Entities.Event;
 import com.example.sprintplannerx.Entities.Task;
 
 import com.example.sprintplannerx.Repository.EventRepository;
@@ -44,10 +45,18 @@ public class TaskService {
         Task task = new Task();
         task.setName(newTask.getName());
         task.setStatus(newTask.getStatus());
+
         task.setDeveloper(userRepository.findByUsername(newTask.getDeveloper().getUsername()).orElse(null));
         task.setAnalyst(userRepository.findByUsername(newTask.getAnalyst().getUsername()).orElse(null));
+
         task.setFinalSP(newTask.getFinalSP());
-        task.setEvent(eventRepository.findEventByEventName(newTask.getEvent().getEventName()));
+
+        Event newEvent = eventRepository.findEventByEventName(newTask.getEvent().getEventName());
+        task.setEvent(newEvent);
+        List<Task> eventTasks =newEvent.getTasks();
+        eventTasks.add(task);
+        newEvent.setTasks(eventTasks);
+
         task.setDueDate(newTask.getDueDate());
         taskRepository.save(task);
         return task;
@@ -59,11 +68,19 @@ public class TaskService {
             Task foundTask = task.get();
             foundTask.setName(newTask.getName());
             foundTask.setStatus(newTask.getStatus());
+
             foundTask.setDeveloper(userRepository.findByUsername(newTask.getDeveloper().getUsername()).orElse(null));
             foundTask.setAnalyst(userRepository.findByUsername(newTask.getAnalyst().getUsername()).orElse(null));
+
             foundTask.setFinalSP(newTask.getFinalSP());
             foundTask.setIsStarred(newTask.isStarred());
-            foundTask.setEvent(eventRepository.findEventByEventName(newTask.getEvent().getEventName()));
+
+            Event newEvent = eventRepository.findEventByEventName(newTask.getEvent().getEventName());
+            foundTask.setEvent(newEvent);
+            List<Task> eventTasks =newEvent.getTasks();
+            eventTasks.add(foundTask);
+            newEvent.setTasks(eventTasks);
+
             foundTask.setDueDate(newTask.getDueDate());
             taskRepository.save(foundTask);
             return foundTask;
@@ -118,6 +135,18 @@ public class TaskService {
         return getDoneTaskCountForUser(username)
                 +getOverDueTaskCountForUser(username)
                  +getToDoTaskCountForUser(username);
+    }
+
+    public String getPerformance(String username) {
+        int doneTaskCount = getDoneTaskCountForUser(username);
+        int totalTaskCount = getTotalTaskCountForUser(username);
+
+        if (totalTaskCount == 0) {
+            return "0%";
+        }
+
+        double performance = ((double) doneTaskCount / totalTaskCount) * 100;
+        return String.format("%.2f%%", performance);
     }
 
     public List<Task> getTasksByDueDateASC(String username){

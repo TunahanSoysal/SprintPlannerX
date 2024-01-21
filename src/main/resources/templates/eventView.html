@@ -48,7 +48,7 @@
             <br>
             <h6 class="card-subtitle mb-2 text-muted">Tasks:</h6>
             <ul class="list-group">
-                <li th:each="task : ${event.getTasks()}" class="list-group-item">
+                <li th:each="task : ${event.tasks}" class="list-group-item">
                     <strong>ID:</strong> <span th:text="${task.ID}"></span><br>
                     <strong>Name:</strong> <span th:text="${task.name}"></span><br>
                     <strong>Developer:</strong> <span th:text="${task.developer.username}"></span><br>

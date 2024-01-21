@@ -72,6 +72,9 @@ public class DashboardController {
         int totalTaskCount = taskService.getTotalTaskCountForUser(username);
         model.addAttribute("totalTaskCount",totalTaskCount);
 
+        String performanceCount = taskService.getPerformance(username);
+        model.addAttribute("performanceCount",performanceCount);
+
         Authentication authentication = securityService.getAuthentication();
         model.addAttribute("authentication", authentication);
 
